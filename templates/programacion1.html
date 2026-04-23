@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programacion 1 | C++</title>
+  <link rel="icon" href="../assets/images/Yo.ico">
+  <link rel="stylesheet" href="../assets/css/styleGeneral.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="navbar-custom">
+    <a class="brand" href="../index.html">Jonathan Hernandez</a>
+    <div class="nav-links">
+      <a href="misProyectos.html">Proyectos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a class="button secondary" href="../index.html">Inicio</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+  <section class="subpage-hero">
+    <a class="back-link" href="../index.html">Regresar al inicio</a>
+    <p class="eyebrow">Programacion 1</p>
+    <h1>Proyectos y Ejercicios en C++</h1>
+    <p class="lead">Coleccion de programas desarrollados en el curso de Programacion 1. Abarca desde operaciones basicas hasta conceptos avanzados como POO, recursividad y manejo de archivos.</p>
+  </section>
+
+  <!-- Proyecto principal: Ahorcado -->
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Proyecto Principal</p>
+        <h2>Juego del Ahorcado</h2>
+      </div>
+    </div>
+    <div class="tech-list">
+      <div class="tech-item">
+        <span class="lang-badge">C++</span>
+        <h2 style="font-size:1.5rem;margin-top:10px">Ahorcado multidificultad con registro en archivo</h2>
+        <h3>Descripcion</h3>
+        <p>Juego de ahorcado con 4 modos: Facil (palabras cortas), Medio (palabras largas), Dificil (frases de dos palabras) y 1 vs 1 donde un jugador ingresa la palabra y el otro adivina. Usa arreglos, funciones, manejo de archivos y numeros aleatorios.</p>
+        <ul class="skill-list">
+          <li>Arreglos de strings</li>
+          <li>Funciones con prototipo</li>
+          <li>Manejo de archivos (fstream)</li>
+          <li>Numeros aleatorios (srand/rand)</li>
+          <li>Switch / do-while</li>
+        </ul>
+        <span class="lang-badge" style="margin-top:16px">Codigo</span>
+        <pre class="code-block">// Ahorcado · Jonathan Hernandez Lazcano
+#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;   // numeros aleatorios
+#include &lt;ctime&gt;     // semilla por tiempo
+#include &lt;fstream&gt;   // manejo de archivos
+using namespace std;
+
+// Prototipos de funciones
+void interfazDificultad();
+void jugarAhorcado(string palabra, string pista);
+void nivelFacil();    // palabras cortas (casa, flor, perro...)
+void nivelMedio();    // palabras largas (computadora, mariposas...)
+void nivelDificil();  // frases de dos palabras
+void nivel1v1();      // modo multijugador
+void mostrarAhorcado(int vidas);
+
+int main() {
+    string jugarDeNuevo;
+    do {
+        interfazDificultad();
+        cout &lt;&lt; "¿Quiere jugar de nuevo? (SI/NO) ";
+        cin &gt;&gt; jugarDeNuevo;
+        system("clear");
+    } while (jugarDeNuevo == "SI" || jugarDeNuevo == "si");
+    cout &lt;&lt; "Gracias por jugar :) " &lt;&lt; endl;
+}
+
+// Logica del juego: letras ocultas, vidas, y registro en archivo
+void jugarAhorcado(string palabra, string pista) {
+    string palabraOculta(palabra.size(), '_');
+    int vidas = 5, intentos = 0;
+
+    while (vidas &gt; 0) {
+        cout &lt;&lt; "Pista: " &lt;&lt; pista &lt;&lt; endl;
+        cout &lt;&lt; "Palabra: " &lt;&lt; palabraOculta &lt;&lt; endl;
+        mostrarAhorcado(vidas);
+
+        if (palabraOculta == palabra) { /* gano */ break; }
+
+        char letra;
+        cout &lt;&lt; "Ingresa una letra: ";
+        cin &gt;&gt; letra;
+        intentos++;
+
+        bool encontrada = false;
+        for (size_t i = 0; i &lt; palabra.size(); i++)
+            if (palabra[i] == letra) { palabraOculta[i] = letra; encontrada = true; }
+
+        if (!encontrada) vidas--;
+    }
+
+    // Guardar resultado en archivo .txt
+    ofstream archivo("registro_ahorcado.txt", ios::app);
+    archivo &lt;&lt; "Jugador: " &lt;&lt; nombre
+            &lt;&lt; " | Resultado: " &lt;&lt; (vidas &gt; 0 ? "Gano" : "Perdio")
+            &lt;&lt; " | Intentos: " &lt;&lt; intentos &lt;&lt; endl;
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Actividades -->
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Actividades de Clase</p>
+        <h2>Ejercicios de Logica</h2>
+      </div>
+    </div>
+    <div class="tech-list">
+
+      <div class="tech-item">
+        <span class="lang-badge">C++ · Condicionales</span>
+        <h2 style="font-size:1.3rem;margin-top:10px">Sensor de Temperatura y Presion</h2>
+        <p>Programa que lee datos de temperatura, humedad y presion atmosferica, y emite alertas segun umbrales definidos. Usa condicionales anidados (if / else if).</p>
+        <pre class="code-block">// Act. 5 · Jonathan Hernandez Lazcano
+#include &lt;iostream&gt;
+using namespace std;
+
+int temp = 0, humedad = 0, presion = 0;
+
+int main() {
+    cout &lt;&lt; "Ingresa la temperatura: "; cin &gt;&gt; temp;
+    cout &lt;&lt; "Ingresa la humedad: ";     cin &gt;&gt; humedad;
+    cout &lt;&lt; "Ingrese la presion: ";     cin &gt;&gt; presion;
+
+    if (temp &gt; 30 &amp;&amp; humedad &gt; 60)
+        cout &lt;&lt; "Alerta alerta!!!";
+    else if (temp &gt;= 20 &amp;&amp; temp &lt;= 25 &amp;&amp; humedad &gt;= 40 &amp;&amp; humedad &lt;= 50)
+        cout &lt;&lt; "Las condiciones son ideales" &lt;&lt; endl;
+
+    if (presion &lt;= 950 || presion &gt;= 1050)
+        cout &lt;&lt; "Presion fuera de rango (950-1050 hPa)" &lt;&lt; endl;
+}</pre>
+      </div>
+
+      <div class="tech-item">
+        <span class="lang-badge">C++ · Funciones</span>
+        <h2 style="font-size:1.3rem;margin-top:10px">Calculadora de Ancho de Banda</h2>
+        <p>Calcula el ancho de banda consumido por una plataforma de streaming (YouTube, Netflix, Twitch) en funcion del bitrate del video, la duracion y el numero de usuarios simultaneos.</p>
+        <pre class="code-block">// Act. 4 · Jonathan Hernandez Lazcano
+// Caso de uso: plataformas de streaming de video
+#include &lt;iostream&gt;
+using namespace std;
+
+double Bitrate = 0;
+float  Duracion = 0;
+int    Usuarios = 0;
+float  result = 0;
+
+int main() {
+    cout &lt;&lt; "Ingresa el Bitrate (Mbps): "; cin &gt;&gt; Bitrate;
+    cout &lt;&lt; "Ingresa la duracion (min): "; cin &gt;&gt; Duracion;
+    cout &lt;&lt; "Numero de usuarios:        "; cin &gt;&gt; Usuarios;
+
+    // Formula: (Bitrate / 60) * (Duracion * 60) * Usuarios
+    result = (Bitrate / 60) * (Duracion * 60) * Usuarios;
+
+    cout &lt;&lt; "El ancho de banda es: " &lt;&lt; result &lt;&lt; " MB" &lt;&lt; endl;
+}</pre>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- POO -->
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">POO</p>
+        <h2>Programacion Orientada a Objetos</h2>
+      </div>
+    </div>
+    <div class="tech-list">
+      <div class="tech-item">
+        <span class="lang-badge">C++ · OOP</span>
+        <h2 style="font-size:1.3rem;margin-top:10px">Clase Persona</h2>
+        <p>Ejemplo de clase con atributos privados (encapsulamiento), constructor y metodos publicos. Base para conceptos mas avanzados como Herencia y Polimorfismo que tambien se practicaron en el curso.</p>
+        <pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+class Persona {
+private:                  // Atributos (encapsulados)
+    int    edad;
+    string nombre;
+
+public:                         // Metodos (acciones)
+    Persona(int, string);       // Constructor
+    void leer();
+    void correr();
+};
+
+// Constructor: inicializa los atributos
+Persona::Persona(int _edad, string _nombre) {
+    edad   = _edad;
+    nombre = _nombre;
+}
+
+void Persona::leer() {
+    cout &lt;&lt; "Soy " &lt;&lt; nombre &lt;&lt; " y estoy leyendo" &lt;&lt; endl;
+}
+
+void Persona::correr() {
+    cout &lt;&lt; "Soy " &lt;&lt; nombre &lt;&lt; " y estoy corriendo, tengo "
+         &lt;&lt; edad &lt;&lt; " años" &lt;&lt; endl;
+}
+
+int main() {
+    Persona p1(19, "Jonathan");
+    p1.leer();   // → Soy Jonathan y estoy leyendo
+    return 0;
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recursividad -->
+  <section class="section" style="border-bottom:0;padding-bottom:0">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Recursividad</p>
+        <h2>Funciones Recursivas</h2>
+      </div>
+    </div>
+    <div class="tech-list" style="padding-bottom:72px">
+      <div class="tech-item">
+        <span class="lang-badge">C++ · Recursividad</span>
+        <h2 style="font-size:1.3rem;margin-top:10px">Serie de Fibonacci</h2>
+        <p>Calculo de la serie de Fibonacci usando recursividad. La funcion se llama a si misma dos veces (caso general) hasta llegar al caso base (n &lt; 2). Tambien se practicaron factorial, potencia y secuencias ascendentes/descendentes.</p>
+        <pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int fibonacci(int n) {
+    if (n &lt; 2) return n;                       // Caso base
+    return fibonacci(n - 1) + fibonacci(n - 2); // Caso recursivo
+}
+
+int main() {
+    int n;
+    cout &lt;&lt; "Limite de la serie: ";
+    cin &gt;&gt; n;
+
+    if (n &lt; 0)
+        cout &lt;&lt; "Ingresa un numero positivo";
+    else
+        cout &lt;&lt; "Resultado: " &lt;&lt; fibonacci(n);
+}</pre>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer page">
+  <p>Portafolio de Jonathan Hernandez Lazcano.</p>
+</footer>
+</body>
+</html>

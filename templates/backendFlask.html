@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarea 9 | Backend con Flask</title>
+  <link rel="icon" href="../assets/images/Yo.ico">
+  <link rel="stylesheet" href="../assets/css/styleGeneral.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="navbar-custom">
+    <a class="brand" href="../index.html">Jonathan Hernandez</a>
+    <div class="nav-links">
+      <a href="misProyectos.html">Proyectos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a class="button secondary" href="../index.html">Inicio</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+  <section class="subpage-hero">
+    <a class="back-link" href="../index.html">Regresar al inicio</a>
+    <p class="eyebrow">Tarea 9</p>
+    <h1>Backend con Python y Flask</h1>
+    <p class="lead">Servidor web desarrollado con Flask que sirve el portafolio con rutas dinamicas, plantillas Jinja2 y un formulario de acceso. Desplegado en Render con Gunicorn.</p>
+  </section>
+
+  <div class="content-grid" style="padding-bottom:72px">
+    <article class="content-main">
+
+      <div class="info-card">
+        <p class="eyebrow">¿Que es Flask?</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Un micro-framework de Python para web</h2>
+        <p>Flask permite crear servidores web con Python de forma sencilla. Cada URL del sitio corresponde a una funcion en Python (llamada <em>ruta</em>) que devuelve una pagina HTML. En este proyecto migre el portafolio estatico a Flask para aprender como funciona un backend real.</p>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Rutas del servidor</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Endpoints definidos</h2>
+        <p>Cada tarea del portafolio tiene su propia ruta:</p>
+        <table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:.9rem">
+          <thead>
+            <tr style="background:var(--surface-soft)">
+              <th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">URL</th>
+              <th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Funcion</th>
+              <th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Plantilla</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:9px 14px;border:1px solid var(--line)">/</td><td style="padding:9px 14px;border:1px solid var(--line)">home()</td><td style="padding:9px 14px;border:1px solid var(--line)">index.html</td></tr>
+            <tr style="background:var(--surface-soft)"><td style="padding:9px 14px;border:1px solid var(--line)">/misProyectos</td><td style="padding:9px 14px;border:1px solid var(--line)">misProyectos()</td><td style="padding:9px 14px;border:1px solid var(--line)">misProyectos.html</td></tr>
+            <tr><td style="padding:9px 14px;border:1px solid var(--line)">/koala</td><td style="padding:9px 14px;border:1px solid var(--line)">koala()</td><td style="padding:9px 14px;border:1px solid var(--line)">scanerKoala.html</td></tr>
+            <tr style="background:var(--surface-soft)"><td style="padding:9px 14px;border:1px solid var(--line)">/reporteVR</td><td style="padding:9px 14px;border:1px solid var(--line)">reporte()</td><td style="padding:9px 14px;border:1px solid var(--line)">reporte.html</td></tr>
+            <tr><td style="padding:9px 14px;border:1px solid var(--line)">/frameworks</td><td style="padding:9px 14px;border:1px solid var(--line)">frameworks()</td><td style="padding:9px 14px;border:1px solid var(--line)">frameworks.html</td></tr>
+            <tr style="background:var(--surface-soft)"><td style="padding:9px 14px;border:1px solid var(--line)">/stackoverflow</td><td style="padding:9px 14px;border:1px solid var(--line)">stackoverflow()</td><td style="padding:9px 14px;border:1px solid var(--line)">stackOverflow.html</td></tr>
+            <tr><td style="padding:9px 14px;border:1px solid var(--line)">/IA</td><td style="padding:9px 14px;border:1px solid var(--line)">IApractica()</td><td style="padding:9px 14px;border:1px solid var(--line)">IA.html</td></tr>
+            <tr style="background:var(--surface-soft)"><td style="padding:9px 14px;border:1px solid var(--line)">/success <small>(POST)</small></td><td style="padding:9px 14px;border:1px solid var(--line)">success()</td><td style="padding:9px 14px;border:1px solid var(--line)">success.html</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Codigo fuente</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">app.py</h2>
+        <p>Archivo principal del servidor. Las credenciales de acceso se leen de variables de entorno, nunca estan en el codigo.</p>
+        <span class="lang-badge">Python</span>
+        <pre class="code-block">from flask import Flask, render_template, redirect, url_for, request
+import os
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/misProyectos')
+def misProyectos():
+    return render_template('misProyectos.html')
+
+@app.route('/koala')
+def koala():
+    return render_template('scanerKoala.html')
+
+@app.route('/reporteVR')
+def reporte():
+    return render_template('reporte.html')
+
+@app.route('/frameworks')
+def frameworks():
+    return render_template('frameworks.html')
+
+@app.route('/stackoverflow')
+def stackoverflow():
+    return render_template('stackOverflow.html')
+
+@app.route('/platicaModeva')
+def platicaModeva():
+    return render_template('platicaModeva.html')
+
+@app.route('/IA')
+def IApractica():
+    return render_template('IA.html')
+
+@app.route('/success', methods=['POST'])
+def success():
+    email    = request.form['email']
+    password = request.form['password']
+    # Las credenciales se guardan como variables de entorno en Render
+    if email == os.environ.get('USER_EMAIL') and \
+       password == os.environ.get('USER_PASS'):
+        return render_template('success.html')
+    return redirect(url_for('home'))
+
+if __name__ == '__main__':
+    app.run(debug=True)</pre>
+      </div>
+
+    </article>
+
+    <aside class="content-side">
+
+      <div class="media-card">
+        <p class="eyebrow">Tecnologias</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>Python 3</li>
+          <li>Flask</li>
+          <li>Jinja2</li>
+          <li>Gunicorn</li>
+          <li>Render</li>
+          <li>HTML / CSS</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Como funciona</p>
+        <ol style="color:var(--muted);padding-left:20px;margin:12px 0 0;line-height:1.9;font-size:.95rem">
+          <li>El usuario abre la URL en el navegador</li>
+          <li>Gunicorn recibe la peticion y la pasa a Flask</li>
+          <li>Flask busca la ruta correspondiente</li>
+          <li>La funcion devuelve una plantilla HTML renderizada</li>
+          <li>El navegador muestra la pagina</li>
+        </ol>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Aprendizajes</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">Aprendi a diferenciar el frontend (lo que ve el usuario) del backend (el servidor). Tambien como desplegar una aplicacion Python en la nube con Render y como proteger datos sensibles con variables de entorno.</p>
+      </div>
+
+    </aside>
+  </div>
+</main>
+
+<footer class="footer page">
+  <p>Portafolio de Jonathan Hernandez Lazcano.</p>
+</footer>
+</body>
+</html>
