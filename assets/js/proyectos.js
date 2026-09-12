@@ -52,6 +52,16 @@ window.PORTAFOLIO = {
       tipo: "Equipo",
       descripcion: "Forme parte del grupo estudiantil de eSports de la Ibero Puebla: competencia por equipos, con roles repartidos y coordinacion en tiempo real.",
       constancia: "Constancia de participacion del Centro de Participacion y Difusion Universitaria, folio CO25234."
+    },
+    {
+      id: "modeva",
+      titulo: "Curso introductorio MODEVA",
+      periodo: "Otono 2024",
+      semestre: "1er semestre",
+      tipo: "Formacion",
+      descripcion: "Curso introductorio sobre la oferta de formacion integral de la universidad: como armar un curriculum, talleres artisticos, grupos estudiantiles, voluntariado y orientacion educativa.",
+      pagina: "templates/platicaModeva.html",
+      constancia: "Constancia de la Ibero Puebla del 29 de noviembre de 2024, ID o4bpxj8q9v."
     }
   ],
 
@@ -221,17 +231,6 @@ window.PORTAFOLIO = {
       imagen: "assets/images/StackOverflow.png",
       pagina: "templates/stackOverflow.html",
       tecnologias: ["Investigacion"],
-      destacado: true
-    },
-    {
-      id: "platica-modeva",
-      materia: "intro-sistemas",
-      etiqueta: "Tarea 7",
-      titulo: "Platica Modeva",
-      resumen: "Resumen de actividades, talleres y vida universitaria.",
-      imagen: "assets/images/modeva.png",
-      pagina: "templates/platicaModeva.html",
-      tecnologias: ["Reporte"],
       destacado: true
     },
     {

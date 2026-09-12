@@ -213,7 +213,10 @@
 
   /* --- Actividades extracurriculares ------------------------------------ */
 
-  function actividad(e) {
+  function actividad(e, base) {
+    var nombre = e.pagina
+      ? '<a href="' + esc(base + e.pagina) + '">' + esc(e.titulo) + '</a>'
+      : esc(e.titulo);
     return '<li class="extra">' +
       '<div class="extra-meta">' +
       '<span class="extra-periodo">' + esc(e.periodo) + '</span>' +
@@ -221,7 +224,7 @@
       (e.tipo ? '<span class="card-tag">' + esc(e.tipo) + '</span>' : '') +
       '</div>' +
       '<div class="extra-cuerpo">' +
-      '<h3>' + esc(e.titulo) +
+      '<h3>' + nombre +
       (e.enCurso ? ' <span class="extra-activo">En curso</span>' : '') + '</h3>' +
       '<p>' + esc(e.descripcion) + '</p>' +
       (e.constancia ? '<p class="extra-nota">' + esc(e.constancia) + '</p>' : '') +
@@ -229,8 +232,9 @@
   }
 
   function pintarActividades(caja) {
+    var base = caja.getAttribute("data-base") || "";
     var lista = datos.extracurriculares || [];
-    caja.innerHTML = lista.map(actividad).join("");
+    caja.innerHTML = lista.map(function (e) { return actividad(e, base); }).join("");
   }
 
   /* --- Arranque ---------------------------------------------------------- */
