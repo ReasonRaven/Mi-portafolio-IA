@@ -41,7 +41,7 @@ window.PORTAFOLIO = {
     {
       id: "kickboxing",
       titulo: "Taller de kickboxing",
-      periodo: "2026",
+      periodo: "Primavera 2026",
       semestre: "5to semestre",
       tipo: "Deporte",
       enCurso: true,
