@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4to Semestre | Bases de Datos con MySQL</title>
+  <link rel="icon" href="../assets/images/Yo.ico">
+  <link rel="stylesheet" href="../assets/css/styleGeneral.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="navbar-custom">
+    <a class="brand" href="../index.html">Jonathan Hernandez</a>
+    <div class="nav-links">
+      <a href="misProyectos.html">Proyectos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a class="button secondary" href="../index.html">Inicio</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+
+  <section class="subpage-hero">
+    <a class="back-link" href="../index.html">Regresar al inicio</a>
+    <p class="eyebrow">Sistemas de Bases de Datos &middot; 4to semestre</p>
+    <h1>Bases de Datos con MySQL</h1>
+    <p class="lead">El curso completo, agrupado por lo que se aprende a hacer y no por el orden en que se entrego: disenar un esquema desde cero, normalizarlo, consultarlo, y meterle logica de negocio con <strong>triggers</strong> y <strong>stored procedures</strong> para que la base se defienda sola.</p>
+    <div class="enlaces">
+      <a class="button" href="https://github.com/ReasonRaven/Mi-portafolio-IA/tree/main/SistemasBasesDeDatos" target="_blank" rel="noopener">Ver los 33 scripts</a>
+      <a class="button secondary" href="../SistemasBasesDeDatos/BasesDeDatosNoRelacionales.pdf" target="_blank" rel="noopener">Investigacion de NoSQL</a>
+    </div>
+  </section>
+
+  <div class="content-grid" style="padding-bottom:72px">
+    <article class="content-main">
+
+      <div class="info-card">
+        <p class="eyebrow">01 &middot; Diseno</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Antes de escribir SQL hay que dibujar</h2>
+        <p>La parte que mas me costo del curso no fue la sintaxis, fue decidir <em>que tablas deben existir</em>. Un diagrama entidad-relacion obliga a contestar eso antes de escribir nada: que entidades hay, como se relacionan y cual es la llave de cada una.</p>
+        <p>Este es el modelo de un restaurante. Lo interesante esta abajo: un mesero atiende varias mesas y una mesa la atienden varios meseros, asi que la relacion no se puede guardar en ninguna de las dos tablas. Se necesita una <strong>tabla puente</strong> (<code>Meseros_mesas</code>) con llave primaria compuesta.</p>
+        <img src="../assets/images/DiagramaER-Restaurante.png" alt="Diagrama entidad-relacion de un restaurante" loading="lazy" style="width:100%;border-radius:10px;margin:16px 0;border:1px solid var(--line);background:#fff">
+        <p>Y este otro es un sistema de comisiones de vendedores, con categorias de empleado, lineas de producto y pagos.</p>
+        <img src="../assets/images/DiagramaER-Ventas.png" alt="Diagrama entidad-relacion de un sistema de ventas y comisiones" loading="lazy" style="width:100%;border-radius:10px;margin-top:16px;border:1px solid var(--line);background:#fff">
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">02 &middot; Normalizacion</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">De una tabla repetida a cuatro tablas limpias</h2>
+        <p>El ejercicio era normalizar los tickets de una tienda hasta forma normal de Boyce-Codd. La tabla original guardaba todo junto, asi que la fecha, la hora, la caja y el nombre del cajero <strong>se repetian en cada renglon</strong> de un mismo ticket (en rojo):</p>
+        <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:.8rem"><thead><tr style="background:var(--surface-soft)"><th style="padding:9px 11px;text-align:left;border:1px solid var(--line)">ticket</th><th style="padding:9px 11px;text-align:left;border:1px solid var(--line)">fecha</th><th style="padding:9px 11px;text-align:left;border:1px solid var(--line)">hora</th><th style="padding:9px 11px;text-align:left;border:1px solid var(--line)">caja</th><th style="padding:9px 11px;text-align:left;border:1px solid var(--line)">cajero</th><th style="padding:9px 11px;text-align:left;border:1px solid var(--line)">producto</th><th style="padding:9px 11px;text-align:left;border:1px solid var(--line)">cant.</th></tr></thead><tbody><tr><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">101</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">01/01/2003</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">10:50:00</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">1</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">Juan</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Bocinas 80w</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">2</td></tr><tr style="background:var(--surface-soft)"><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">101</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">01/01/2003</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">10:50:00</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">1</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">Juan</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">DVD Multiregion</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">1</td></tr><tr><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">101</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">01/01/2003</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">10:50:00</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">1</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">Juan</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">TV 21"</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">1</td></tr><tr style="background:var(--surface-soft)"><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">127</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">10/02/2003</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">11:00:20</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">2</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Armando</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Bocinas 80w</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">4</td></tr><tr><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">485</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">11/02/2003</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">16:55:00</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">1</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Aurora</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">TV 25"</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">1</td></tr><tr style="background:var(--surface-soft)"><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">485</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">11/02/2003</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">16:55:00</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">1</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top"><span style="color:var(--accent);font-weight:700">Aurora</span></td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">DVD Multiregion</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">1</td></tr></tbody></table></div>
+        <p style="margin-top:16px">Eso no es solo feo: si el cajero cambia de nombre hay que actualizarlo en muchos renglones, y si uno se escapa la base queda inconsistente. La solucion es separar cada cosa en su tabla y unirlas con llaves foraneas.</p>
+        <span class="lang-badge">MySQL &middot; DDL</span>
+        <pre class="code-block">create table producto(
+  cve_prod varchar(3) not null,
+  producto varchar(50) not null,
+  primary key (cve_prod)
+);
+
+create table cajero(
+  cve_cajero numeric(2) not null,
+  cajero     varchar(25) not null,
+  primary key (cve_cajero)
+);
+
+create table ticket (
+  ticket     int not null,
+  fecha      date not null,
+  hora       time not null,
+  cve_cajero numeric(2),
+  caja       numeric(2) not null,
+  primary key (ticket),
+  foreign key (cve_cajero) references cajero(cve_cajero)
+);
+
+-- Tabla puente: resuelve el muchos-a-muchos entre ticket y producto.
+-- La llave primaria es compuesta, para que un producto no se repita
+-- dos veces en el mismo ticket.
+create table ticket_producto(
+  ticket   int not null,
+  cve_prod varchar(3) not null,
+  cantidad int not null,
+  primary key (ticket, cve_prod),
+  foreign key (ticket)   references ticket(ticket),
+  foreign key (cve_prod) references producto(cve_prod)
+);</pre>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">03 &middot; Consultas</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Preguntarle cosas a la base</h2>
+        <p>Estas salen directo de la terminal de MySQL, con su resultado tal cual lo devolvio.</p>
+        <h3 style="margin-top:26px">Filtros combinados</h3><p>Empleados con numero menor a 15, de los departamentos B o C, que no se apelliden Jones.</p><span class="lang-badge">MySQL</span>
+        <pre class="code-block">mysql&gt; select SURNAME, EMPNUM, DEPT from EMPS
+    -&gt; where EMPNUM &lt; 15 and DEPT in('B','C') and SURNAME != ('JONES');
++----------+--------+------+
+| SURNAME  | EMPNUM | DEPT |
++----------+--------+------+
+| MARSH    |      2 | B    |
+| PHILLIPS |     14 | C    |
++----------+--------+------+
+2 rows in set (0,001 sec)</pre><h3 style="margin-top:26px">Columna calculada con alias</h3><p>El I.V.A. de la deduccion de cada empleado, con el titulo de la columna cambiado.</p><span class="lang-badge">MySQL</span>
+        <pre class="code-block">mysql&gt; select EMPNUM, DEDUCTION, DEDUCTION*1.16 AS 'I.V.A' from EMPS;
++--------+-----------+----------+
+| EMPNUM | DEDUCTION | I.V.A    |
++--------+-----------+----------+
+|      1 |    100.00 | 116.0000 |
+|      2 |     75.00 |  87.0000 |
+|      3 |     75.00 |  87.0000 |
+|      4 |     50.00 |  58.0000 |
+|      5 |     50.00 |  58.0000 |
+|      6 |    100.00 | 116.0000 |
+|      7 |     50.00 |  58.0000 |
++--------+-----------+----------+</pre><h3 style="margin-top:26px">Contar valores distintos</h3><p>De cuantas provincias distintas vienen los empleados.</p><span class="lang-badge">MySQL</span>
+        <pre class="code-block">mysql&gt; select count(distinct PROV) from EMPS;
++----------------------+
+| count(distinct PROV) |
++----------------------+
+|                    7 |
++----------------------+
+1 row in set (0,001 sec)</pre><h3 style="margin-top:26px">Busqueda por patron</h3><p>Departamentos cuyo gerente se apellida Jones, sin saber el nombre completo.</p><span class="lang-badge">MySQL</span>
+        <pre class="code-block">mysql&gt; select DEPT, CODE from SDEPT where MANAGER like ('%JONES%');
++------+------+
+| DEPT | CODE |
++------+------+
+| B    |    2 |
++------+------+</pre>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">04 &middot; Triggers</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Reglas que la base aplica sola</h2>
+        <p>Un <strong>trigger</strong> es codigo que se dispara solo cuando algo cambia en una tabla. Lo util es que la regla vive en la base: da igual si la venta entro por la app, por un script o a mano, el descuento de inventario siempre ocurre.</p>
+        <p>Este es el que mas me gusta de todo el curso. Al registrar una venta descuenta el stock, pero si <strong>no alcanza</strong> no falla ni deja existencias en negativo: vacia lo que queda y manda el faltante a una tabla de <code>BACKORDER</code>.</p>
+        <span class="lang-badge">MySQL &middot; Trigger</span>
+        <pre class="code-block">DELIMITER //
+
+CREATE TRIGGER actualiza_existencias
+AFTER INSERT ON DET_VENTA
+FOR EACH ROW
+BEGIN
+    DECLARE exits NUMERIC(3);
+    DECLARE falt  NUMERIC(3);
+
+    SELECT EXISTENCIA INTO exits
+    FROM   PRODUCTO
+    WHERE  CVE_PROD = NEW.CVE_PROD;
+
+    IF exits &gt;= NEW.CANTIDAD THEN
+        -- Hay suficiente: solo se descuenta
+        UPDATE PRODUCTO
+        SET    EXISTENCIA = EXISTENCIA - NEW.CANTIDAD
+        WHERE  CVE_PROD = NEW.CVE_PROD;
+    ELSE
+        -- No alcanza: se vacia el stock y el faltante se va a backorder
+        SET falt = NEW.CANTIDAD - exits;
+
+        UPDATE PRODUCTO SET EXISTENCIA = 0
+        WHERE  CVE_PROD = NEW.CVE_PROD;
+
+        INSERT INTO BACKORDER (NUM_VENTA, CVE_PROD, CANTIDAD)
+        VALUES (NEW.NUM_VENTA, NEW.CVE_PROD, falt);
+    END IF;
+END//</pre>
+        <h3 style="margin-top:26px">Otro: creditos de un estudiante</h3>
+        <p>Al borrar una materia de la matricula, le resta los creditos al estudiante &mdash; pero solo si la habia aprobado.</p>
+        <span class="lang-badge">MySQL &middot; Trigger</span>
+        <pre class="code-block">CREATE TRIGGER resta_creditos
+AFTER DELETE ON matricula
+FOR EACH ROW
+BEGIN
+    DECLARE creditos_asig NUMERIC(2,0);
+
+    -- Solo se restan creditos si la materia estaba aprobada
+    IF OLD.nota IN ('C+','B-','B','B+','A-','A','A+') THEN
+
+        SET creditos_asig = (
+            SELECT creditos FROM asignatura
+            WHERE  asignatura_id = OLD.asignatura_id
+        );
+
+        UPDATE estudiante
+        SET    tot_creditos = tot_creditos - creditos_asig
+        WHERE  ID = OLD.ID;
+    END IF;
+END//</pre>
+        <p style="margin-top:16px">En total escribi <strong>12 triggers</strong>: actualizar precios de venta, restaurar existencias al cancelar una venta, validar clientes antes de modificarlos, bloquear el borrado de pedidos, y otros.</p>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">05 &middot; Stored procedures</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Programar dentro de la base de datos</h2>
+        <p>Un <strong>stored procedure</strong> es un programa guardado en la base: recibe parametros, tiene variables, ciclos y condicionales. Sirve cuando la logica es demasiado complicada para una sola consulta.</p>
+        <p>Este aplica descuentos por marca, pero no de golpe: se acerca al precio objetivo en pasos, y los pasos son mas grandes mientras mas lejos este del objetivo. Usa dos ciclos anidados y <code>CASE</code>.</p>
+        <span class="lang-badge">MySQL &middot; Procedure</span>
+        <pre class="code-block">-- Baja progresivamente el precio de los productos de una marca hasta llegar
+-- a un precio objetivo que depende del tipo de producto.
+DELIMITER //
+CREATE PROCEDURE descuentoSegmentado(IN param_marca VARCHAR(20))
+BEGIN
+    DECLARE prod INT DEFAULT 1;
+    DECLARE max_prod INT;
+    DECLARE precio DECIMAL(10,2);
+    DECLARE tipo VARCHAR(20);
+    DECLARE objetivo DECIMAL(10,2);
+
+    SELECT MAX(cve_prod) INTO max_prod FROM PRODUCTO;
+
+    WHILE prod &lt;= max_prod DO
+        SELECT precio_venta, producto INTO precio, tipo
+        FROM   PRODUCTO WHERE cve_prod = prod;
+
+        CASE
+            WHEN tipo LIKE 'DISCO%'   THEN SET objetivo = precio * 0.80;  -- 20% off
+            WHEN tipo LIKE 'MONITOR%' THEN SET objetivo = precio * 0.70;  -- 30% off
+            ELSE                           SET objetivo = precio * 0.75;  -- 25% off
+        END CASE;
+
+        -- Se acerca al objetivo en pasos, mas agresivos mientras mas lejos este
+        WHILE precio &gt; objetivo DO
+            CASE
+                WHEN precio &gt; objetivo * 1.5 THEN SET precio = precio * 0.90;
+                WHEN precio &gt; objetivo * 1.2 THEN SET precio = precio * 0.95;
+                ELSE                              SET precio = precio * 0.98;
+            END CASE;
+
+            UPDATE PRODUCTO SET precio_venta = precio WHERE cve_prod = prod;
+        END WHILE;
+
+        SET prod = prod + 1;
+    END WHILE;
+END //</pre>
+        <p style="margin-top:16px">Son <strong>15 procedures</strong> en total: el producto mas vendido en un rango de fechas, insertar ventas validando stock, reabastecer productos, calcular cupo disponible de un grupo, comisiones por producto, descuentos segmentados y varios mas.</p>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">06 &middot; NoSQL</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Cuando lo relacional no es la respuesta</h2>
+        <p>El curso no se quedo solo en MySQL. Tambien investigue las bases de datos no relacionales: los cuatro tipos que existen (documentos, clave-valor, columna ancha y grafos), en que se diferencian de SQL en escalabilidad y estructura, sus ventajas y desventajas, y para que casos conviene cada una, revisando MongoDB, Cassandra, Redis, Neo4j y CouchDB.</p>
+        <a class="button secondary" href="../SistemasBasesDeDatos/BasesDeDatosNoRelacionales.pdf" target="_blank" rel="noopener" style="margin-top:14px">Leer la investigacion</a>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Retrospectiva</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Que haria distinto hoy</h2>
+        <p>De todo lo que entregue, el procedure del producto mas vendido es el que peor envejecio. Funciona y da el resultado correcto, pero lo resolvi con subconsultas repetidas cuando habia una forma mucho mas directa:</p>
+        <span class="lang-badge">MySQL</span>
+        <pre class="code-block">-- Lo que escribi entonces (productoMasVendido): la misma subconsulta
+-- correlacionada repetida dos veces, una para mostrar la cantidad y otra
+-- para compararla contra el maximo. Funciona, pero recorre las ventas
+-- muchas mas veces de las necesarias.
+
+-- Lo que escribiria hoy:
+SELECT p.CVE_PROD, p.PRODUCTO, p.MARCA, SUM(d.CANTIDAD) AS cant_vendida
+FROM   PRODUCTO  p
+JOIN   DET_VENTA d ON d.CVE_PROD  = p.CVE_PROD
+JOIN   VENTA     v ON v.NUM_VENTA = d.NUM_VENTA
+WHERE  v.FECHA_VENTA BETWEEN p_fecha_inicio AND p_fecha_fin
+GROUP BY p.CVE_PROD, p.PRODUCTO, p.MARCA
+ORDER BY cant_vendida DESC
+LIMIT 1;</pre>
+        <p style="margin-top:16px">Con un detalle que vale la pena decir: <code>LIMIT 1</code> se queda con un solo producto si hay empate, mientras que mi version original devolvia todos los empatados. No es que una este mal y la otra bien &mdash; contestan preguntas ligeramente distintas, y eso es justo lo que hay que tener claro antes de elegir.</p>
+      </div>
+
+    </article>
+
+    <aside class="content-side">
+
+      <div class="media-card">
+        <p class="eyebrow">Lo que hay en el curso</p>
+        <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:.8rem"><thead><tr style="background:var(--surface-soft)"><th style="padding:9px 11px;text-align:left;border:1px solid var(--line)">Tema</th><th style="padding:9px 11px;text-align:left;border:1px solid var(--line)">Cuanto</th></tr></thead><tbody><tr><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Stored procedures</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">15 scripts</td></tr><tr style="background:var(--surface-soft)"><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Triggers</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">12 scripts</td></tr><tr><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Esquemas y normalizacion</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">5 scripts</td></tr><tr style="background:var(--surface-soft)"><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Comandos de referencia</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">1 script</td></tr><tr><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Diagramas ER</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">5 ejercicios</td></tr><tr style="background:var(--surface-soft)"><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">Normalizacion</td><td style="padding:8px 11px;border:1px solid var(--line);vertical-align:top">5 ejercicios</td></tr></tbody></table></div>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Herramientas</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>MySQL</li>
+          <li>Terminal de mysql</li>
+          <li>SQL (DDL y DML)</li>
+          <li>Diagramas ER</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Conceptos</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>Modelo entidad-relacion</li>
+          <li>Llaves primarias y foraneas</li>
+          <li>Tablas puente</li>
+          <li>Normalizacion (hasta BCNF)</li>
+          <li>Dependencia funcional</li>
+          <li>Integridad referencial</li>
+          <li>Subconsultas</li>
+          <li>NoSQL</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Descargar</p>
+        <div class="enlaces" style="margin-top:12px;flex-direction:column">
+          <a class="button" href="https://github.com/ReasonRaven/Mi-portafolio-IA/tree/main/SistemasBasesDeDatos" target="_blank" rel="noopener">Los 33 scripts .sql</a>
+          <a class="button secondary" href="../SistemasBasesDeDatos/BasesDeDatosNoRelacionales.pdf" target="_blank" rel="noopener">Investigacion NoSQL</a>
+        </div>
+        <p class="nota">Los scripts estan en el repositorio, separados en esquemas, procedures y triggers.</p>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Nota honesta</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">El esquema de la universidad sobre el que corri varios ejercicios (<code>ScriptUniversidad.sql</code>) viene del libro de texto del curso, no lo disene yo. Lo mio son los triggers, los procedures, las consultas, los diagramas ER y la normalizacion.</p>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Aprendizajes</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">Lo que me cambio la cabeza fue entender que la base de datos <strong>no es un almacen tonto</strong>. Puede validar, calcular y reaccionar sola. Un trigger bien puesto evita que un error en la aplicacion deje el inventario en negativo, y eso es mas confiable que confiar en que todo el codigo que toca la base este bien escrito.</p>
+      </div>
+
+    </aside>
+  </div>
+
+</main>
+
+<footer class="footer page">
+  <p>Portafolio de Jonathan Hernandez Lazcano.</p>
+</footer>
+
+<script src="../assets/js/proyectos.js"></script>
+<script src="../assets/js/portafolio.js"></script>
+</body>
+</html>

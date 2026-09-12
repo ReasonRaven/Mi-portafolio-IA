@@ -1,0 +1,30 @@
+DELIMITER //
+
+CREATE TRIGGER restaura_existencias
+AFTER DELETE ON DET_VENTA
+FOR EACH ROW
+BEGIN
+    DECLARE bk    NUMERIC(3);
+    DECLARE surt  NUMERIC(3);
+
+    SET bk = (
+        SELECT IFNULL(CANTIDAD, 0)
+        FROM   BACKORDER
+        WHERE  NUM_VENTA = OLD.NUM_VENTA
+        AND    CVE_PROD  = OLD.CVE_PROD
+    );
+
+    IF bk IS NULL THEN
+        SET bk = 0;
+    END IF;
+
+    SET surt = OLD.CANTIDAD - bk;
+
+    UPDATE PRODUCTO
+    SET    EXISTENCIA = EXISTENCIA + surt
+    WHERE  CVE_PROD = OLD.CVE_PROD;
+
+END//
+
+DELIMITER ;
+

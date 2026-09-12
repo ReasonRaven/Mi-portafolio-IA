@@ -1,0 +1,24 @@
+DELIMITER //
+
+CREATE TRIGGER actualiza_precioventa
+AFTER UPDATE ON PROV_PROD
+FOR EACH ROW
+BEGIN
+    -- Solo actúa si cambiaron PRECIO_COSTO o CARGOS
+    IF NEW.PRECIO_COSTO <> OLD.PRECIO_COSTO
+       OR NEW.CARGOS <> OLD.CARGOS THEN
+
+        -- Si el PRECIO_VENTA actual no cumple el mínimo del 15%, se corrige
+        IF (SELECT PRECIO_VENTA FROM PRODUCTO WHERE CVE_PROD = NEW.CVE_PROD)
+            < (NEW.PRECIO_COSTO + NEW.CARGOS) * 1.15 THEN
+
+            UPDATE PRODUCTO
+            SET PRECIO_VENTA = (NEW.PRECIO_COSTO + NEW.CARGOS) * 1.15
+            WHERE CVE_PROD = NEW.CVE_PROD;
+
+        END IF;
+
+    END IF;
+END//
+
+DELIMITER ;

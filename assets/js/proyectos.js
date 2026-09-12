@@ -25,7 +25,7 @@ window.PORTAFOLIO = {
   /* Botones de filtro del catalogo completo. Un proyecto aparece bajo el filtro
      si el texto esta EXACTAMENTE igual dentro de su lista "tecnologias".
      Deja pocos y utiles: son para navegar, no para presumir. */
-  filtros: ["React", "JavaScript", "Python", "C++", "APIs", "Grafos", "ERP", "HTML", "CSS", "IA"],
+  filtros: ["React", "JavaScript", "Python", "C++", "MySQL", "APIs", "Grafos", "ERP", "HTML", "CSS", "IA"],
 
   /* El catalogo completo se agrupa con estas materias. El "id" es el que se
      usa abajo en cada proyecto. Para una materia nueva, agrega otro objeto. */
@@ -35,6 +35,12 @@ window.PORTAFOLIO = {
       nombre: "Estructura de Datos y Algoritmos Avanzados",
       semestre: "4to semestre",
       descripcion: "Algoritmos de grafos aplicados a un problema real: calcular rutas optimas sobre el mapa de Tlaxcala con Dijkstra, A* y k-shortest paths."
+    },
+    {
+      id: "bases-de-datos",
+      nombre: "Sistemas de Bases de Datos",
+      semestre: "4to semestre",
+      descripcion: "El curso completo de MySQL: disenar un esquema desde el diagrama entidad-relacion, normalizarlo, consultarlo y meterle logica de negocio con triggers y stored procedures."
     },
     {
       id: "sistemas-informacion",
@@ -85,6 +91,18 @@ window.PORTAFOLIO = {
       pagina: "templates/rutasOptimas.html",
       tecnologias: ["React", "TypeScript", "Python", "FastAPI", "NetworkX", "Docker", "APIs", "Grafos"],
       repo: "https://github.com/ReasonRaven/ProyectoRutasOptimasRedesViales",
+      destacado: true
+    },
+    {
+      id: "bases-de-datos-mysql",
+      materia: "bases-de-datos",
+      etiqueta: "Curso completo",
+      titulo: "Bases de Datos con MySQL",
+      resumen: "33 scripts de MySQL: diagramas ER, normalizacion, consultas, 12 triggers y 15 stored procedures.",
+      imagen: "assets/images/BasesDeDatos.svg",
+      pagina: "templates/basesDeDatos.html",
+      tecnologias: ["MySQL", "SQL", "Triggers", "Stored Procedures", "Normalizacion", "Diagramas ER", "NoSQL"],
+      repo: "https://github.com/ReasonRaven/Mi-portafolio-IA/tree/main/SistemasBasesDeDatos",
       destacado: true
     },
     {
