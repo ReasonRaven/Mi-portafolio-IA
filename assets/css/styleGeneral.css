@@ -25,3 +25,39 @@
 .extra-nota{margin-top:10px!important;font-size:.85rem}
 .extra-activo{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.05em;padding:3px 10px;border-radius:999px;background:var(--surface-soft);color:var(--primary-dark);border:1px solid var(--line);vertical-align:middle;margin-left:8px}
 @media (max-width:640px){.extra{grid-template-columns:1fr;gap:12px}.extra-meta{flex-direction:row;align-items:center;flex-wrap:wrap;gap:10px}}
+/* === Modo oscuro ========================================================== */
+/* El tema se elige con el atributo data-tema del <html>, que pone tema.js.
+   Casi todo cambia solo porque el sitio ya estaba hecho con variables; lo que
+   viene despues de la paleta son los pocos colores que estaban fijos. */
+:root{--on-primary:#fff;color-scheme:light}
+[data-tema="oscuro"]{
+  --bg:#0b1719;
+  --surface:#132427;
+  --surface-soft:#183034;
+  --text:#e6f1f0;
+  --muted:#9db0b3;
+  --line:#24403f;
+  --primary:#2dd4bf;
+  /* En claro es un teal mas oscuro; aqui se invierte a proposito, porque
+     sobre fondo negro el estado "mas fuerte" tiene que ser mas claro. */
+  --primary-dark:#5eead4;
+  --accent:#fb7185;
+  --gold:#fbbf24;
+  /* Texto que va ENCIMA del teal. En oscuro el teal es brillante, asi que el
+     blanco de siempre quedaria ilegible y se usa un verde casi negro. */
+  --on-primary:#04211d;
+  --shadow:0 18px 45px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+[data-tema="oscuro"] .site-header{background:rgba(11,23,25,.92)}
+[data-tema="oscuro"] .hero{background:linear-gradient(135deg,var(--bg) 0%,#123033 100%)}
+[data-tema="oscuro"] .button,[data-tema="oscuro"] button.button,[data-tema="oscuro"] .button:hover,[data-tema="oscuro"] .chip.activa{color:var(--on-primary)}
+[data-tema="oscuro"] .code-block{background:#091b1e;border:1px solid var(--line)}
+[data-tema="oscuro"] .project-card:hover{box-shadow:0 24px 55px rgba(45,212,191,.22)}
+
+/* Boton para cambiar de tema. Lo inserta tema.js en la barra de navegacion. */
+.tema-toggle{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:40px;height:40px;padding:0;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;transition:color .15s ease,border-color .15s ease}
+.tema-toggle:hover{color:var(--primary);border-color:var(--primary)}
+.tema-toggle svg{display:block}
+[data-tema="claro"] .tema-toggle .icono-sol{display:none}
+[data-tema="oscuro"] .tema-toggle .icono-luna{display:none}
