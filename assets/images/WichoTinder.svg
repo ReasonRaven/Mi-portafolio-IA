@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b1a12"/>
+      <stop offset="100%" stop-color="#1a0d09"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+
+  <text x="200" y="46" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="28" fill="#f0a07c" text-anchor="middle">WichoTinder</text>
+  <text x="200" y="68" font-family="monospace" font-size="12" fill="#c9a99c" text-anchor="middle">Red de amigos del campus</text>
+
+  <!-- aristas: el grafo es no dirigido, cada amistad conecta en los dos sentidos -->
+  <g stroke="#ffffff" stroke-width="1.6" opacity="0.5">
+    <line x1="200" y1="162" x2="262" y2="162"/>
+    <line x1="200" y1="162" x2="231" y2="216"/>
+    <line x1="200" y1="162" x2="169" y2="216"/>
+    <line x1="200" y1="162" x2="138" y2="162"/>
+    <line x1="200" y1="162" x2="169" y2="108"/>
+    <line x1="200" y1="162" x2="231" y2="108"/>
+  </g>
+
+  <!-- nodos amigos (mismo color que usa el canvas del proyecto) -->
+  <g fill="#4f9da6">
+    <circle cx="262" cy="162" r="16"/>
+    <circle cx="231" cy="216" r="16"/>
+    <circle cx="169" cy="216" r="16"/>
+    <circle cx="138" cy="162" r="16"/>
+    <circle cx="169" cy="108" r="16"/>
+    <circle cx="231" cy="108" r="16"/>
+  </g>
+
+  <!-- nodo central: el usuario -->
+  <circle cx="200" cy="162" r="23" fill="#ba4b2f"/>
+  <text x="200" y="167" font-family="Arial,sans-serif" font-weight="bold" font-size="13" fill="#ffffff" text-anchor="middle">YO</text>
+
+  <line x1="28" y1="256" x2="372" y2="256" stroke="#5a2e21" stroke-width="1"/>
+  <text x="200" y="276" font-family="Arial,sans-serif" font-size="12" fill="#c9a99c" text-anchor="middle">Grafos · Pilas · POO · Canvas</text>
+</svg>

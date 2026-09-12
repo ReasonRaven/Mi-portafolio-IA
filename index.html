@@ -22,16 +22,16 @@
             <div>
                 <p class="eyebrow">Portafolio estudiantil</p>
                 <h1>Hola, soy Jonathan y estoy construyendo mi camino en programacion.</h1>
-                <p class="lead">Este sitio reune mis tareas, practicas y primeros proyectos de la materia. Aqui muestro
-                    lo que he aprendido con HTML, CSS, Python, C++ y herramientas digitales como Polycam y Teachable
-                    Machine.</p>
+                <p class="lead">Aqui reuno los proyectos que he hecho a lo largo de la carrera: desde mis primeras
+                    paginas en HTML hasta una aplicacion con React y una API en Python que calcula rutas
+                    optimas sobre el mapa real de Tlaxcala.</p>
                 <div class="hero-actions"><a class="button" href="#proyectos">Ver proyectos</a><a
                         class="button secondary" href="https://wa.me/522461747159?text=Hola" target="_blank"
                         rel="noopener">Hablar por WhatsApp</a></div>
                 <div class="stats">
-                    <div class="stat"><strong>10</strong><span>Proyectos</span></div>
-                    <div class="stat"><strong>4</strong><span>Lenguajes</span></div>
-                    <div class="stat"><strong>1</strong><span>Portafolio</span></div>
+                    <div class="stat"><strong data-contador="proyectos">10</strong><span>Proyectos</span></div>
+                    <div class="stat"><strong data-contador="lenguajes">5</strong><span>Lenguajes</span></div>
+                    <div class="stat"><strong data-contador="materias">2</strong><span>Materias</span></div>
                 </div>
             </div>
             <div><img class="hero-photo" src="assets/images/Yo.jpeg" alt="Foto de Jonathan Hernandez"></div>
@@ -42,25 +42,27 @@
                     <p class="eyebrow">Sobre mi</p>
                     <h2>Aprender, practicar y mejorar.</h2>
                 </div>
-                <p>Soy Jonathan Hernandez Lazcano, estudiante de primer semestre. Me gustan los videojuegos, la
-                    tecnologia y los proyectos donde puedo probar algo nuevo.</p>
+                <p>Soy Jonathan Hernandez Lazcano, estudiante de Ingenieria en Sistemas en la Ibero Puebla.
+                    Me gustan los videojuegos, la tecnologia y los proyectos donde puedo probar algo nuevo.</p>
             </div>
             <div class="about-grid">
                 <article class="info-card">
                     <h3>Lo que estoy desarrollando</h3>
-                    <p>Estoy reforzando las bases de programacion y desarrollo web. Este portafolio muestra mi avance:
-                        desde mi primera pagina hasta una demo con inteligencia artificial.</p>
-                    <ul class="skill-list">
+                    <p>Este portafolio muestra mi avance semestre a semestre: de mi primera pagina en HTML a
+                        aplicaciones con frontend en React, APIs en Python y algoritmos de grafos.</p>
+                    <ul class="skill-list" data-lista="lenguajes">
                         <li>HTML</li>
                         <li>CSS</li>
-                        <li>C++</li>
+                        <li>JavaScript</li>
                         <li>Python</li>
+                        <li>C++</li>
+                        <li>MySQL</li>
                     </ul>
                 </article>
                 <article class="info-card">
                     <h3>Intereses</h3>
-                    <p>Videojuegos competitivos, realidad virtual, escaneo 3D, inteligencia artificial y desarrollo de
-                        paginas web.</p>
+                    <p>Videojuegos competitivos, realidad virtual, escaneo 3D, inteligencia artificial, algoritmos
+                        y desarrollo web.</p>
                 </article>
             </div>
         </section>
@@ -71,65 +73,9 @@
                     <h2>Mis tareas y proyectos</h2>
                 </div><a class="button secondary" href="templates/misProyectos.html">Catalogo completo</a>
             </div>
-            <div class="project-grid"><a class="project-card" href="templates/mi_Pagina_WEB.html"><img
-                        src="assets/images/SSdemipag.png" alt="Mi primera pagina">
-                    <div class="project-card-content"><small>Tarea 1</small>
-                        <h3>Mi primera pagina</h3>
-                        <p>Presentacion personal con gustos, habilidades y datos de contacto.</p>
-                    </div>
-                </a><a class="project-card" href="templates/scanerKoala.html"><img src="assets/images/poly-snapshot.jpg"
-                        alt="Escaner de objeto">
-                    <div class="project-card-content"><small>Tarea 2</small>
-                        <h3>Escaner de objeto</h3>
-                        <p>Modelo 3D de un koala creado con Polycam y publicado en Sketchfab.</p>
-                    </div>
-                </a><a class="project-card" href="templates/reporte.html"><img src="assets/images/VR.jpeg"
-                        alt="Experiencia VR">
-                    <div class="project-card-content"><small>Tarea 3</small>
-                        <h3>Experiencia VR</h3>
-                        <p>Reporte breve sobre el uso de gafas de realidad virtual.</p>
-                    </div>
-                </a><a class="project-card" href="templates/frameworks.html"><img src="assets/images/Frameworks.png"
-                        alt="Frameworks">
-                    <div class="project-card-content"><small>Tarea 4</small>
-                        <h3>Frameworks</h3>
-                        <p>Investigacion de tecnologias usadas por aplicaciones populares.</p>
-                    </div>
-                </a><a class="project-card" href="tarea5/ejemAhorcado.py"><img src="assets/images/Ahorcado.png"
-                        alt="Ahorcado en Python">
-                    <div class="project-card-content"><small>Tarea 5</small>
-                        <h3>Ahorcado en Python</h3>
-                        <p>Codigo de un juego de ahorcado desarrollado en Python.</p>
-                    </div>
-                </a><a class="project-card" href="templates/stackOverflow.html"><img
-                        src="assets/images/StackOverflow.png" alt="Stack Overflow">
-                    <div class="project-card-content"><small>Tarea 6</small>
-                        <h3>Stack Overflow</h3>
-                        <p>Presentacion visual sobre la plataforma Stack Overflow.</p>
-                    </div>
-                </a><a class="project-card" href="templates/platicaModeva.html"><img src="assets/images/modeva.png"
-                        alt="Platica Modeva">
-                    <div class="project-card-content"><small>Tarea 7</small>
-                        <h3>Platica Modeva</h3>
-                        <p>Resumen de actividades, talleres y vida universitaria.</p>
-                    </div>
-                </a><a class="project-card" href="templates/IA.html"><img src="assets/images/TeachableMachine.png"
-                        alt="IA Teachable Machine">
-                    <div class="project-card-content"><small>Tarea 8</small>
-                        <h3>IA Teachable Machine</h3>
-                        <p>Demo interactiva de clasificacion con camara e inteligencia artificial.</p>
-                    </div>
-                </a><a class="project-card" href="templates/backendFlask.html"><img src="assets/images/BackendFlask.svg" alt="Backend con Flask">
-                    <div class="project-card-content"><small>Tarea 9</small>
-                        <h3>Backend con Flask</h3>
-                        <p>Servidor web con Python y Flask que sirve el portafolio con rutas dinamicas.</p>
-                    </div>
-                </a><a class="project-card" href="templates/programacion1.html"><img src="assets/images/ProgramacionCpp.svg" alt="Programacion 1 C++">
-                    <div class="project-card-content"><small>Prog. 1</small>
-                        <h3>Programacion 1 &mdash; C++</h3>
-                        <p>Proyectos y ejercicios del curso: Ahorcado, POO, recursividad y arreglos.</p>
-                    </div>
-                </a></div>
+            <div class="project-grid" data-proyectos="destacados" data-base="">
+                <noscript><p class="sin-resultados">Activa JavaScript en tu navegador para ver la lista de proyectos.</p></noscript>
+            </div>
         </section>
         <section class="section" id="contacto">
             <div class="contact-grid">
@@ -163,6 +109,8 @@
     <footer class="footer page">
         <p>Portafolio de Jonathan Hernandez Lazcano.</p>
     </footer>
+    <script src="assets/js/proyectos.js"></script>
+    <script src="assets/js/portafolio.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!-- ===========================================================================
+     PLANTILLA DE PROYECTO  (esta pagina no se publica, es solo el molde)
+
+     COMO USARLA:
+       1. Copia este archivo con un nombre nuevo, ej. templates/miProyecto.html
+       2. Reemplaza todo lo que este entre [[ dobles corchetes ]]
+       3. Borra los bloques marcados como OPCIONAL que no apliquen
+       4. Agrega el proyecto al arreglo "proyectos" de assets/js/proyectos.js
+
+     OJO: dentro de <pre class="code-block"> hay que escribir  &lt;  en vez de <
+     y  &amp;  en vez de &, si no el navegador se confunde con el HTML.
+     =========================================================================== -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[[Etiqueta]] | [[Titulo del proyecto]]</title>
+  <link rel="icon" href="../assets/images/Yo.ico">
+  <link rel="stylesheet" href="../assets/css/styleGeneral.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="navbar-custom">
+    <a class="brand" href="../index.html">Jonathan Hernandez</a>
+    <div class="nav-links">
+      <a href="misProyectos.html">Proyectos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a class="button secondary" href="../index.html">Inicio</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+
+  <section class="subpage-hero">
+    <a class="back-link" href="../index.html">Regresar al inicio</a>
+    <p class="eyebrow">[[Tarea 10 / Materia]]</p>
+    <h1>[[Titulo del proyecto]]</h1>
+    <p class="lead">[[Dos renglones: que hace el proyecto y con que esta hecho.]]</p>
+
+    <!-- Los botones "Ver demo" y "Codigo en GitHub" salen solos de los campos
+         demo y repo del catalogo. Solo pon aqui el id del proyecto. -->
+    <div class="enlaces" data-enlaces="[[id-del-proyecto]]"></div>
+  </section>
+
+  <!-- ==== OPCIONAL: DEMO EN VIVO =========================================
+       Para proyectos desplegados (React, Vite, Next, una API con interfaz).
+       Borra la seccion completa si el proyecto no vive en internet. -->
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Demo</p>
+        <h2>El proyecto corriendo</h2>
+      </div>
+      <a class="button secondary" href="[[https://mi-demo.vercel.app]]" target="_blank" rel="noopener">Abrir en otra pestana</a>
+    </div>
+    <div class="demo-frame">
+      <iframe src="[[https://mi-demo.vercel.app]]" title="Demo de [[Titulo del proyecto]]" loading="lazy"></iframe>
+    </div>
+    <p class="nota">Si el demo tarda en cargar es porque el servidor gratuito estaba dormido; dale unos segundos.</p>
+  </section>
+  <!-- ==== FIN DEMO EN VIVO ================================================ -->
+
+  <div class="content-grid" style="padding-bottom:72px">
+    <article class="content-main">
+
+      <div class="info-card">
+        <p class="eyebrow">De que trata</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">[[Que problema resuelve]]</h2>
+        <p>[[Explica en dos o tres renglones que hace el proyecto, para quien es y por que lo hiciste asi. Escribelo como si se lo contaras a un companero.]]</p>
+      </div>
+
+      <!-- ==== OPCIONAL: CAPTURAS O VIDEO ==================================
+           Sirve para proyectos que no se pueden abrir en el navegador
+           (consola, apps de escritorio) o para mostrar el antes y despues. -->
+      <div class="info-card">
+        <p class="eyebrow">Como se ve</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Capturas</h2>
+        <div class="gallery two" style="margin-top:14px">
+          <img src="../assets/images/[[captura1.png]]" alt="[[Que se ve en la captura]]" loading="lazy">
+          <img src="../assets/images/[[captura2.png]]" alt="[[Que se ve en la captura]]" loading="lazy">
+        </div>
+        <!-- Para un video grabado de la pantalla:
+        <video src="../assets/videos/[[demo.mp4]]" controls muted playsinline></video> -->
+      </div>
+      <!-- ==== FIN CAPTURAS ================================================= -->
+
+      <!-- ==== OPCIONAL: ENDPOINTS (solo para APIs con GET / POST) =========
+           Es la "documentacion" de la API. Se ve muy profesional. -->
+      <div class="info-card">
+        <p class="eyebrow">API</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Endpoints</h2>
+        <table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:.9rem">
+          <thead>
+            <tr style="background:var(--surface-soft)">
+              <th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Metodo</th>
+              <th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Ruta</th>
+              <th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Que hace</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:9px 14px;border:1px solid var(--line)">GET</td><td style="padding:9px 14px;border:1px solid var(--line)">/[[ruta]]</td><td style="padding:9px 14px;border:1px solid var(--line)">[[Devuelve la lista de...]]</td></tr>
+            <tr style="background:var(--surface-soft)"><td style="padding:9px 14px;border:1px solid var(--line)">POST</td><td style="padding:9px 14px;border:1px solid var(--line)">/[[ruta]]</td><td style="padding:9px 14px;border:1px solid var(--line)">[[Crea un nuevo...]]</td></tr>
+          </tbody>
+        </table>
+
+        <span class="lang-badge" style="margin-top:18px">Peticion</span>
+        <pre class="code-block">POST /[[ruta]]
+Content-Type: application/json
+
+{
+  "[[campo]]": "[[valor]]"
+}</pre>
+
+        <span class="lang-badge">Respuesta</span>
+        <pre class="code-block">{
+  "ok": true,
+  "[[campo]]": "[[valor]]"
+}</pre>
+      </div>
+      <!-- ==== FIN ENDPOINTS ================================================ -->
+
+      <div class="info-card">
+        <p class="eyebrow">Codigo</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">[[Archivo o funcion principal]]</h2>
+        <p>[[Una linea diciendo que hace este pedazo de codigo y por que es el importante.]]</p>
+        <span class="lang-badge">[[JavaScript]]</span>
+        <pre class="code-block">[[Pega aqui SOLO el fragmento que vale la pena: 30-60 lineas.
+Comentalo en espanol. El codigo completo va en GitHub.]]</pre>
+      </div>
+
+    </article>
+
+    <aside class="content-side">
+
+      <div class="media-card">
+        <p class="eyebrow">Tecnologias</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>[[Tecnologia 1]]</li>
+          <li>[[Tecnologia 2]]</li>
+          <li>[[Tecnologia 3]]</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Como funciona</p>
+        <ol style="color:var(--muted);padding-left:20px;margin:12px 0 0;line-height:1.9;font-size:.95rem">
+          <li>[[Paso 1]]</li>
+          <li>[[Paso 2]]</li>
+          <li>[[Paso 3]]</li>
+        </ol>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Aprendizajes</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">[[Que aprendiste haciendolo y que se te complico. Esta parte es la que mas se lee.]]</p>
+      </div>
+
+    </aside>
+  </div>
+</main>
+
+<footer class="footer page">
+  <p>Portafolio de Jonathan Hernandez Lazcano.</p>
+</footer>
+
+<script src="../assets/js/proyectos.js"></script>
+<script src="../assets/js/portafolio.js"></script>
+</body>
+</html>

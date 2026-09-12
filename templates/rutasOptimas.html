@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4to Semestre | Rutas Optimas en Redes Viales</title>
+  <link rel="icon" href="../assets/images/Yo.ico">
+  <link rel="stylesheet" href="../assets/css/styleGeneral.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="navbar-custom">
+    <a class="brand" href="../index.html">Jonathan Hernandez</a>
+    <div class="nav-links">
+      <a href="misProyectos.html">Proyectos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a class="button secondary" href="../index.html">Inicio</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+
+  <section class="subpage-hero">
+    <a class="back-link" href="../index.html">Regresar al inicio</a>
+    <p class="eyebrow">Estructura de Datos y Algoritmos Avanzados &middot; 4to semestre</p>
+    <h1>Rutas Optimas en Redes Viales</h1>
+    <p class="lead">Aplicacion web que calcula la mejor ruta entre dos puntos sobre el mapa real de Tlaxcala y compara tres algoritmos al mismo tiempo: Dijkstra, A* y k-shortest paths. Backend en Python con FastAPI, frontend en React con TypeScript y Leaflet.</p>
+    <div class="enlaces" data-enlaces="rutas-optimas"></div>
+  </section>
+
+  <div class="content-grid" style="padding-bottom:72px">
+    <article class="content-main">
+
+      <div class="info-card">
+        <p class="eyebrow">De que trata</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Un grafo de 65 mil nodos sacado del mapa real</h2>
+        <p>El backend descarga la red vial completa de Tlaxcala con <strong>osmnx</strong> (los datos abiertos de OpenStreetMap) y la convierte en un grafo de <strong>65,461 nodos</strong> y <strong>164,409 aristas</strong>, donde cada arista pesa lo que mide esa calle en metros.</p>
+        <p>El usuario pica dos puntos en el mapa. La app busca el nodo mas cercano a cada clic, corre los tres algoritmos sobre el mismo grafo y devuelve las rutas con su distancia, su tiempo estimado y <strong>cuanto tardo cada algoritmo en calcularla</strong>. Esa ultima columna es la interesante: es donde se ve la diferencia entre un algoritmo y otro.</p>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Como se ve</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">La app corriendo</h2>
+        <p>Panel de control a la izquierda, mapa de Leaflet a la derecha. Las tres rutas se dibujan encima del mapa con colores distintos y la tabla compara los resultados.</p>
+        <img src="../assets/images/RutasOptimasMapa.jpg" alt="Rutas calculadas sobre el mapa de Tlaxcala con la tabla de comparacion" loading="lazy" style="width:100%;border-radius:10px;margin:16px 0;border:1px solid var(--line)">
+        <p>Antes de calcular, el panel espera a que el grafo termine de cargar en el servidor. El boton se habilita solo cuando <code>/health</code> responde que ya esta listo.</p>
+        <img src="../assets/images/RutasOptimasInicio.jpg" alt="Pantalla del mapa antes de seleccionar los puntos" loading="lazy" style="width:100%;border-radius:10px;margin-top:16px;border:1px solid var(--line)">
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">API</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Endpoints del backend</h2>
+        <p>El servidor es una API REST hecha con FastAPI. El frontend no sabe nada de algoritmos: solo manda un POST con las coordenadas y recibe las rutas en JSON.</p>
+        <table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:.9rem"><thead><tr style="background:var(--surface-soft)"><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Metodo</th><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Ruta</th><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Que hace</th></tr></thead><tbody><tr><td style="padding:9px 14px;border:1px solid var(--line)">GET</td><td style="padding:9px 14px;border:1px solid var(--line)">/health</td><td style="padding:9px 14px;border:1px solid var(--line)">Avisa si el grafo ya termino de cargar</td></tr><tr style="background:var(--surface-soft)"><td style="padding:9px 14px;border:1px solid var(--line)">POST</td><td style="padding:9px 14px;border:1px solid var(--line)">/routes/compare</td><td style="padding:9px 14px;border:1px solid var(--line)">Calcula los 3 algoritmos de un jalon</td></tr><tr><td style="padding:9px 14px;border:1px solid var(--line)">POST</td><td style="padding:9px 14px;border:1px solid var(--line)">/routes/dijkstra</td><td style="padding:9px 14px;border:1px solid var(--line)">Solo Dijkstra</td></tr><tr style="background:var(--surface-soft)"><td style="padding:9px 14px;border:1px solid var(--line)">POST</td><td style="padding:9px 14px;border:1px solid var(--line)">/routes/astar</td><td style="padding:9px 14px;border:1px solid var(--line)">Solo A*</td></tr><tr><td style="padding:9px 14px;border:1px solid var(--line)">POST</td><td style="padding:9px 14px;border:1px solid var(--line)">/routes/k-shortest</td><td style="padding:9px 14px;border:1px solid var(--line)">Las k rutas alternativas mas cortas</td></tr></tbody></table>
+        <span class="lang-badge" style="margin-top:20px">Peticion</span>
+        <pre class="code-block">POST /routes/compare
+Content-Type: application/json
+
+{
+  "origin_lat": 19.3139,
+  "origin_lng": -98.2404,
+  "dest_lat":   19.2900,
+  "dest_lng":   -98.2100,
+  "k": 3
+}</pre>
+        <span class="lang-badge">Respuesta</span>
+        <pre class="code-block">{
+  "dijkstra": {
+    "algorithm": "Dijkstra",
+    "coordinates": [[19.3139, -98.2404], "..."],
+    "distance_km": 16.992,
+    "estimated_time_minutes": 20.4,
+    "execution_time_ms": 130.5
+  },
+  "astar":      { "...": "misma ruta, 13.1 ms" },
+  "k_shortest": [ { "..." }, { "..." }, { "..." } ]
+}</pre>
+        <p style="margin-top:16px">FastAPI genera sola la documentacion interactiva en <code>/docs</code>, asi que se puede probar la API desde el navegador sin escribir nada de codigo.</p>
+        <span class="lang-badge">Python &middot; FastAPI</span>
+        <pre class="code-block">@router.post("/routes/compare", response_model=CompareResponse, tags=["Rutas"])
+def compare_routes(req: RouteRequest):
+    """Calcula los tres algoritmos a la vez y devuelve sus rutas."""
+    try:
+        # De coordenadas (lat/lng) al nodo mas cercano del grafo real
+        G, D, origin, dest = _resolve_nodes(req)
+
+        dijkstra   = run_dijkstra(G, origin, dest)
+        astar      = run_astar(G, origin, dest)
+        k_shortest = run_k_shortest(G, D, origin, dest, req.k)
+
+        return CompareResponse(dijkstra=dijkstra, astar=astar, k_shortest=k_shortest)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Error inesperado en /routes/compare")
+        raise HTTPException(status_code=500, detail=f"Error interno: {str(e)}")</pre>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Algoritmos</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Dijkstra vs A*: la misma ruta, 10 veces mas rapido</h2>
+        <p>Los dos encuentran <strong>exactamente la misma ruta</strong>, porque los dos garantizan el camino minimo. La diferencia esta en cuanto trabajo hacen para llegar ahi: A* usa una heuristica (la distancia en linea recta al destino) para no perder tiempo explorando calles que van para el lado contrario.</p>
+        <span class="lang-badge">Python &middot; NetworkX</span>
+        <pre class="code-block">def run_dijkstra(G, origin: int, dest: int) -&gt; RouteResult:
+    t0 = time.perf_counter()                       # se cronometra el calculo
+    try:
+        path = nx.dijkstra_path(G, origin, dest, weight="length")
+    except nx.NetworkXNoPath:
+        raise HTTPException(404, "No existe ruta entre los puntos dados (Dijkstra)")
+    elapsed = (time.perf_counter() - t0) * 1000
+    return _build_result("Dijkstra", G, path, elapsed)
+
+
+def run_astar(G, origin: int, dest: int) -&gt; RouteResult:
+    heuristic = make_haversine_heuristic(G)        # &lt;- la unica diferencia real
+    t0 = time.perf_counter()
+    try:
+        path = nx.astar_path(G, origin, dest, heuristic=heuristic, weight="length")
+    except nx.NetworkXNoPath:
+        raise HTTPException(404, "No existe ruta entre los puntos dados (A*)")
+    elapsed = (time.perf_counter() - t0) * 1000
+    return _build_result("A*", G, path, elapsed)
+
+
+def make_haversine_heuristic(G):
+    """Distancia en linea recta al destino: le dice a A* hacia donde ir."""
+    def heuristic(u: int, v: int) -&gt; float:
+        u_lat, u_lng = G.nodes[u]["y"], G.nodes[u]["x"]
+        v_lat, v_lng = G.nodes[v]["y"], G.nodes[v]["x"]
+        return haversine_distance(u_lat, u_lng, v_lat, v_lng)
+    return heuristic</pre>
+        <h3 style="margin-top:24px">Complejidad</h3>
+        <table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:.9rem"><thead><tr style="background:var(--surface-soft)"><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Algoritmo</th><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Tiempo</th><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Espacio</th><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Nota</th></tr></thead><tbody><tr><td style="padding:9px 14px;border:1px solid var(--line)">Dijkstra</td><td style="padding:9px 14px;border:1px solid var(--line)">O((V + E) log V)</td><td style="padding:9px 14px;border:1px solid var(--line)">O(V)</td><td style="padding:9px 14px;border:1px solid var(--line)">Usa cola de prioridad. Garantiza el camino minimo.</td></tr><tr style="background:var(--surface-soft)"><td style="padding:9px 14px;border:1px solid var(--line)">A*</td><td style="padding:9px 14px;border:1px solid var(--line)">O((V + E) log V)</td><td style="padding:9px 14px;border:1px solid var(--line)">O(V)</td><td style="padding:9px 14px;border:1px solid var(--line)">Mismo peor caso, pero explora muchos menos nodos gracias a la heuristica.</td></tr><tr><td style="padding:9px 14px;border:1px solid var(--line)">k-Shortest (Yen)</td><td style="padding:9px 14px;border:1px solid var(--line)">O(kV(V + E) log V)</td><td style="padding:9px 14px;border:1px solid var(--line)">O(kV)</td><td style="padding:9px 14px;border:1px solid var(--line)">Cada ruta extra obliga a recorrer el grafo otra vez.</td></tr></tbody></table>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Validaciones</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">La API no confia en lo que le mandan</h2>
+        <p>Con Pydantic, cada peticion se revisa antes de tocar el grafo: las coordenadas tienen que caer dentro de Tlaxcala, el origen no puede ser igual al destino y k tiene que estar entre 1 y 10. Si algo falla, regresa un 422 con el mensaje explicando que estuvo mal.</p>
+        <span class="lang-badge">Python &middot; Pydantic</span>
+        <pre class="code-block">class RouteRequest(BaseModel):
+    origin_lat: float
+    origin_lng: float
+    dest_lat: float
+    dest_lng: float
+    k: int = settings.k_default
+
+    @field_validator("origin_lat", "dest_lat")
+    @classmethod
+    def validate_lat(cls, v: float) -&gt; float:
+        # El grafo solo cubre Tlaxcala: fuera de ahi no hay calles cargadas
+        if not (settings.bbox_lat_min &lt;= v &lt;= settings.bbox_lat_max):
+            raise ValueError(f"Latitud {v} fuera del rango de Tlaxcala")
+        return v
+
+    @model_validator(mode="after")
+    def origin_not_equal_dest(self) -&gt; "RouteRequest":
+        if (abs(self.origin_lat - self.dest_lat) &lt; 1e-6
+                and abs(self.origin_lng - self.dest_lng) &lt; 1e-6):
+            raise ValueError("El origen y el destino no pueden ser el mismo punto")
+        return self</pre>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Frontend</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Como React le habla a la API</h2>
+        <p>Toda la comunicacion pasa por un solo archivo. Al estar tipado con TypeScript, si el backend cambia la forma de la respuesta el editor avisa antes de que el error llegue al navegador.</p>
+        <span class="lang-badge">TypeScript &middot; React</span>
+        <pre class="code-block">const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+
+// Envoltura generica para todos los POST: tipada, y con errores en espanol
+async function post&lt;T&gt;(path: string, body: unknown): Promise&lt;T&gt; {
+  let res: Response;
+  try {
+    res = await fetch(`${BASE_URL}${path}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  } catch {
+    throw new Error("No se pudo conectar con el servidor. Verifica que el backend este corriendo.");
+  }
+
+  if (!res.ok) {
+    const err = await res.json().catch(() =&gt; ({ detail: res.statusText }));
+    // Pydantic regresa detail como arreglo en los errores 422
+    const detail = Array.isArray(err.detail)
+      ? err.detail.map((e: { msg?: string }) =&gt; e.msg ?? JSON.stringify(e)).join(" | ")
+      : (err.detail ?? "Error desconocido");
+    throw new Error(detail);
+  }
+
+  return res.json() as Promise&lt;T&gt;;
+}
+
+export const api = {
+  health:        (): Promise&lt;boolean&gt; =&gt; ...,
+  compareRoutes: (req: RouteRequest) =&gt; post&lt;CompareResponse&gt;("/routes/compare", req),
+  dijkstra:      (req: RouteRequest) =&gt; post&lt;RouteResult&gt;("/routes/dijkstra", req),
+  astar:         (req: RouteRequest) =&gt; post&lt;RouteResult&gt;("/routes/astar", req),
+  kShortest:     (req: RouteRequest) =&gt; post&lt;RouteResult[]&gt;("/routes/k-shortest", req),
+};</pre>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Como correrlo</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Todo va en Docker</h2>
+        <p>Backend y frontend viven cada uno en su contenedor y se levantan juntos con un comando. No hay que instalar Python ni Node: solo Docker.</p>
+        <span class="lang-badge">Terminal</span>
+        <pre class="code-block"># Primera vez (tarda 3-5 min mientras descarga el mapa de Tlaxcala)
+docker-compose up --build
+
+# Las siguientes veces arranca en ~20 segundos
+docker-compose up
+
+# App:              http://localhost:3000
+# Documentacion API: http://localhost:8000/docs</pre>
+        <p class="nota">Por eso este proyecto no tiene demo publico como los demas: necesita descargar y mantener en memoria el grafo completo de Tlaxcala, que no cabe en un servidor gratuito.</p>
+      </div>
+
+    </article>
+
+    <aside class="content-side">
+
+      <div class="media-card">
+        <p class="eyebrow">Resultados reales</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.92rem">Una ruta de 17 km dentro de Tlaxcala:</p>
+        <table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:.9rem"><thead><tr style="background:var(--surface-soft)"><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Algoritmo</th><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Distancia</th><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Tiempo est.</th><th style="padding:10px 14px;text-align:left;border:1px solid var(--line)">Calculo</th></tr></thead><tbody><tr><td style="padding:9px 14px;border:1px solid var(--line)">Dijkstra</td><td style="padding:9px 14px;border:1px solid var(--line)">16.992 km</td><td style="padding:9px 14px;border:1px solid var(--line)">20.4 min</td><td style="padding:9px 14px;border:1px solid var(--line)">130.5 ms</td></tr><tr style="background:var(--surface-soft)"><td style="padding:9px 14px;border:1px solid var(--line)">A*</td><td style="padding:9px 14px;border:1px solid var(--line)">16.992 km</td><td style="padding:9px 14px;border:1px solid var(--line)">20.4 min</td><td style="padding:9px 14px;border:1px solid var(--line)"><strong>13.1 ms</strong></td></tr><tr><td style="padding:9px 14px;border:1px solid var(--line)">k-Shortest (3 rutas)</td><td style="padding:9px 14px;border:1px solid var(--line)">16.992 &ndash; 16.996 km</td><td style="padding:9px 14px;border:1px solid var(--line)">20.4 min</td><td style="padding:9px 14px;border:1px solid var(--line)">1474.2 ms</td></tr></tbody></table>
+        <p style="color:var(--muted);margin:12px 0 0;font-size:.88rem">A* llego a la misma ruta <strong>10 veces mas rapido</strong> que Dijkstra.</p>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Backend</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>Python 3</li>
+          <li>FastAPI</li>
+          <li>osmnx</li>
+          <li>NetworkX</li>
+          <li>Pydantic</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Frontend</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>React 18</li>
+          <li>TypeScript</li>
+          <li>Leaflet</li>
+          <li>Vite</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Infraestructura</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>Docker</li>
+          <li>Docker Compose</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Equipo</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">Proyecto final hecho en equipo:</p>
+        <ul class="skill-list" style="margin-top:10px">
+          <li>Jonathan Hernandez Lazcano</li>
+          <li>Camila Rodriguez Rosas</li>
+          <li>Nicolas Trujillo Beristain</li>
+        </ul>
+        <p style="color:var(--muted);margin:12px 0 0;font-size:.88rem">Maestro: Paulo Daniel Vazquez Mora<br>Universidad Iberoamericana Puebla &middot; 2026</p>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Aprendizajes</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">Aqui vi por primera vez la diferencia entre que un algoritmo <em>funcione</em> y que sea <em>eficiente</em>: Dijkstra y A* dan el mismo resultado, pero con 65 mil nodos esa diferencia se siente. Tambien aprendi a separar de verdad el backend del frontend, y que una API tiene que validar todo lo que recibe.</p>
+      </div>
+
+    </aside>
+  </div>
+
+</main>
+
+<footer class="footer page">
+  <p>Portafolio de Jonathan Hernandez Lazcano.</p>
+</footer>
+
+<script src="../assets/js/proyectos.js"></script>
+<script src="../assets/js/portafolio.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarea 5 | Ahorcado en Python</title>
+  <link rel="icon" href="../assets/images/Yo.ico">
+  <link rel="stylesheet" href="../assets/css/styleGeneral.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="navbar-custom">
+    <a class="brand" href="../index.html">Jonathan Hernandez</a>
+    <div class="nav-links">
+      <a href="misProyectos.html">Proyectos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a class="button secondary" href="../index.html">Inicio</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+
+  <section class="subpage-hero">
+    <a class="back-link" href="../index.html">Regresar al inicio</a>
+    <p class="eyebrow">Tarea 5</p>
+    <h1>Juego del Ahorcado en Python</h1>
+    <p class="lead">Mi primer programa con logica de juego: el jugador adivina una palabra letra por letra y va perdiendo vidas cuando falla. Todo corre en la terminal, sin librerias externas.</p>
+    <div class="enlaces" data-enlaces="ahorcado-python">
+      <a class="button secondary" href="../tarea5/ejemAhorcado.py">Ver archivo .py</a>
+    </div>
+  </section>
+
+  <div class="content-grid" style="padding-bottom:72px">
+    <article class="content-main">
+
+      <div class="info-card">
+        <p class="eyebrow">De que trata</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Adivinar la palabra antes de quedarte sin vidas</h2>
+        <p>El programa guarda una palabra secreta y la muestra como guiones. En cada vuelta pide una letra: si la letra esta en la palabra, la revela en todas las posiciones donde aparece; si no esta, descuenta una vida. El ciclo termina cuando se completa la palabra o cuando las vidas llegan a cero.</p>
+        <p>Lo hice para practicar ciclos <em>while</em>, listas y comparaciones. Aunque es corto, tiene la estructura de cualquier juego: estado, entrada del jugador, regla que decide, y condicion de fin.</p>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Codigo</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">ejemAhorcado.py</h2>
+        <p>El programa completo son 40 lineas. La parte importante es el ciclo que compara la letra contra cada posicion de la palabra.</p>
+        <span class="lang-badge">Python</span>
+        <pre class="code-block">palabra = list("casa")          # la palabra secreta, letra por letra
+n = len(palabra)
+entrada = ["-" for i in range(n)]   # lista de comprension: ["-","-","-","-"]
+vidas = 4
+encontrado = False
+
+print("Bienvenido al juego del ahorcado")
+print(f"Cuentas con {vidas} vidas")
+print(f"Estado actual: {entrada}")
+
+while entrada != palabra:           # se repite hasta completar la palabra
+    letra = input("Ingresa una letra: ")
+
+    # Reviso TODAS las posiciones: si la letra se repite, se revela dos veces
+    for i in range(n):
+        if palabra[i] == letra:
+            print(f"Si existe {letra} en la posicion {i}")
+            entrada[i] = letra
+            encontrado = True
+
+    if not encontrado:              # fallo: se descuenta una vida
+        print(f"La letra {letra} no existe, bu!")
+        vidas -= 1
+
+    print(f"Estado actual: {entrada}")
+    print(f"Vidas restantes: {vidas}")
+
+    if vidas == 0:
+        print("Perdiste :(")
+        break                       # corta el ciclo aunque falten letras
+
+    encontrado = False              # se reinicia para la siguiente vuelta
+
+if entrada == palabra:
+    print("Felicidades ganaste!")
+
+print("Game over")</pre>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Como se ve</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Corriendo en la terminal</h2>
+        <img src="../assets/images/Ahorcado.png" alt="El juego del ahorcado corriendo en la terminal" loading="lazy" style="width:100%;border-radius:10px;margin-top:14px;border:1px solid var(--line)">
+      </div>
+
+    </article>
+
+    <aside class="content-side">
+
+      <div class="media-card">
+        <p class="eyebrow">Tecnologias</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>Python 3</li>
+          <li>Listas</li>
+          <li>Ciclos while / for</li>
+          <li>f-strings</li>
+          <li>Terminal</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Como funciona</p>
+        <ol style="color:var(--muted);padding-left:20px;margin:12px 0 0;line-height:1.9;font-size:.95rem">
+          <li>Se guarda la palabra secreta como lista</li>
+          <li>Se crea otra lista llena de guiones</li>
+          <li>El jugador escribe una letra</li>
+          <li>Si acierta, la letra se revela; si no, pierde una vida</li>
+          <li>Termina al completar la palabra o al llegar a 0 vidas</li>
+        </ol>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Aprendizajes</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">Aqui entendi por que hay que reiniciar la bandera <strong>encontrado</strong> en cada vuelta: si no lo hacia, el programa se quedaba pensando que siempre habia acertado y nunca descontaba vidas. Tambien aprendi a comparar listas completas con <strong>!=</strong> en vez de ir letra por letra.</p>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Siguiente paso</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">La version en C++ de este mismo juego, con niveles de dificultad y registro en archivo, esta en <a href="programacion1.html">Programacion 1</a>.</p>
+      </div>
+
+    </aside>
+  </div>
+</main>
+
+<footer class="footer page">
+  <p>Portafolio de Jonathan Hernandez Lazcano.</p>
+</footer>
+
+<script src="../assets/js/proyectos.js"></script>
+<script src="../assets/js/portafolio.js"></script>
+</body>
+</html>

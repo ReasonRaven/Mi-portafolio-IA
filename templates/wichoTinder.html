@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programacion 2 | WichoTinder</title>
+  <link rel="icon" href="../assets/images/Yo.ico">
+  <link rel="stylesheet" href="../assets/css/styleGeneral.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="navbar-custom">
+    <a class="brand" href="../index.html">Jonathan Hernandez</a>
+    <div class="nav-links">
+      <a href="misProyectos.html">Proyectos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a class="button secondary" href="../index.html">Inicio</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+
+  <section class="subpage-hero">
+    <a class="back-link" href="../index.html">Regresar al inicio</a>
+    <p class="eyebrow">Programacion 2 &middot; Proyecto final</p>
+    <h1>WichoTinder</h1>
+    <p class="lead">Una parodia de Tinder para el campus de la Ibero. Por debajo del chiste es un proyecto de estructuras de datos: las amistades son un <strong>grafo no dirigido</strong>, las busquedas recientes son una <strong>pila</strong>, y el mapa del campus es otro grafo dibujado con NetworkX.</p>
+    <div class="enlaces" data-enlaces="wicho-tinder"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Demo</p>
+        <h2>Pruebalo aqui mismo</h2>
+      </div>
+      <a class="button secondary" href="https://reasonraven.github.io/WichoTinder/" target="_blank" rel="noopener">Abrir en otra pestana</a>
+    </div>
+    <div class="demo-frame">
+      <iframe src="https://reasonraven.github.io/WichoTinder/" title="Demo de WichoTinder" loading="lazy"></iframe>
+    </div>
+    <p class="nota">Esta es la version publicada en GitHub Pages, corriendo de verdad. Haz clic en el logo para entrar, y en <strong>MY FRIENDS</strong> elige tu nombre para armar tu grafo de amigos.</p>
+  </section>
+
+  <div class="content-grid" style="padding-bottom:72px">
+    <article class="content-main">
+
+      <div class="info-card">
+        <p class="eyebrow">De que trata</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Estructuras de datos disfrazadas de app de citas</h2>
+        <p>La idea era practicar grafos con algo que diera risa en clase. WichoTinder tiene 15 perfiles de estudiantes con carrera, hobbies, edificio donde se les encuentra y foto. Eliges quien eres, la app te sugiere companeros y cada vez que agregas a alguien se crea una amistad.</p>
+        <p>La gracia esta en que <strong>todo lo que se ve es una estructura de datos</strong>: el circulito de color al lado de cada perfil es la compatibilidad (si comparten hobby), la lista de amigos es una lista de adyacencia, y al final se dibuja el grafo completo en un canvas.</p>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Grafo de amistades</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Cada estudiante es un nodo</h2>
+        <p>La clase <code>Student</code> guarda sus datos y una lista <code>friends</code>. Esa lista es literalmente la lista de adyacencia del grafo. Lo importante es que la amistad se agrega <strong>en los dos sentidos</strong>, porque el grafo es no dirigido.</p>
+        <span class="lang-badge">JavaScript &middot; POO</span>
+        <pre class="code-block">// Cada estudiante es un NODO. Su lista "friends" es la lista de adyacencia.
+class Student {
+  constructor(name, career, hobbies, building, age, image) {
+    this.name = name;
+    this.career = career;
+    this.hobbies = hobbies;
+    this.building = building;
+    this.age = age;
+    this.image = image;
+    this.friends = [];        // &lt;- aqui vive el grafo
+  }
+
+  addFriend(student) {
+    this.friends.push(student);
+  }
+}
+
+// Una amistad es una ARISTA NO DIRIGIDA: hay que agregarla en los dos sentidos,
+// si no, A seria amigo de B pero B no de A.
+function addFriend(name) {
+  const friend = students[name];
+
+  if (!selectedUser.friends.includes(friend)) selectedUser.addFriend(friend);
+  if (!friend.friends.includes(selectedUser)) friend.addFriend(selectedUser);
+
+  addedFriends.add(friend.name);
+  renderFriendCards(selectedUser.name);
+  saveState();              // se guarda en localStorage para no perder el grafo
+}</pre>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Visualizacion</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Dibujar el grafo con canvas</h2>
+        <p>Cuando terminas de agregar amigos, el boton <em>Finalizar</em> dibuja el grafo: tu nodo al centro y los amigos repartidos en circulo usando seno y coseno para calcular donde va cada uno.</p>
+        <span class="lang-badge">JavaScript &middot; Canvas</span>
+        <pre class="code-block">// Dibuja el grafo del usuario: el nodo central es el, alrededor sus amigos.
+function drawGraph() {
+  const ctx = canvas.getContext("2d");
+  const centerX = canvas.width / 2, centerY = canvas.height / 2;
+  const radius = 200;
+
+  // Los amigos se reparten en circulo: 360 grados entre el numero de amigos
+  const angleStep = (2 * Math.PI) / selectedUser.friends.length;
+
+  ctx.fillStyle = "#ba4b2f";                          // nodo central
+  ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+  ctx.fill();
+
+  selectedUser.friends.forEach((friend, index) =&gt; {
+    const angle = index * angleStep;
+    const x = centerX + radius * Math.cos(angle);     // trigonometria para
+    const y = centerY + radius * Math.sin(angle);     // colocar cada nodo
+
+    ctx.moveTo(centerX, centerY);                     // ARISTA
+    ctx.lineTo(x, y);
+    ctx.stroke();
+
+    ctx.fillStyle = "#4f9da6";                        // NODO amigo
+    ctx.arc(x, y, 25, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillText(friend.name, x, y + 5);
+  });
+}</pre>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Pila</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">Busquedas recientes con un stack</h2>
+        <p>En la pantalla <em>Explore</em> puedes buscar a un companero. Cada busqueda se apila, y al pedir el historial se muestra al reves: lo ultimo que buscaste sale primero. Eso es una pila (LIFO) en su forma mas simple.</p>
+        <span class="lang-badge">JavaScript &middot; Pila</span>
+        <pre class="code-block">// PILA (stack): las busquedas recientes salen en orden inverso al que entraron.
+const searchStack = [];
+
+function searchFriend() {
+  const name = document.getElementById("friendName").value.trim().toLowerCase();
+  const students = ["camila", "ximena", "daniel", "tomas", "jonathan", "wicho", ...];
+
+  if (students.includes(name)) {
+    searchStack.push(name);                    // PUSH: entra hasta arriba
+    resultDiv.innerHTML = `&lt;p&gt;${name} si esta en el campus.&lt;/p&gt;`;
+  } else {
+    resultDiv.innerHTML = `&lt;p&gt;Amigo no encontrado.&lt;/p&gt;`;
+  }
+}
+
+function showRecentSearches() {
+  // LIFO: se invierte para mostrar primero lo ultimo que se busco
+  resultDiv.innerHTML = searchStack.slice().reverse()
+    .map(name =&gt; `&lt;li&gt;${name}&lt;/li&gt;`).join("");
+}</pre>
+      </div>
+
+      <div class="info-card">
+        <p class="eyebrow">Grafo del campus</p>
+        <h2 style="font-size:1.4rem;margin-top:8px">17 lugares y 19 caminos, sobre el mapa real</h2>
+        <p>La pantalla <em>Campus</em> muestra un grafo dibujado encima de la foto aerea de la Ibero: los nodos son lugares (Biblioteca, Cafeteria, Gym, los salones del IDIT) y las aristas son los caminos que de verdad se pueden recorrer a pie. Se genero con Python, NetworkX y matplotlib.</p>
+        <img src="../assets/images/WichoTinderGrafo.jpg" alt="Grafo del campus de la Ibero dibujado sobre el mapa" loading="lazy" style="width:100%;border-radius:10px;margin:16px 0;border:1px solid var(--line);background:#fff">
+        <span class="lang-badge">Python &middot; NetworkX</span>
+        <pre class="code-block">import matplotlib.pyplot as plt
+import networkx as nx
+
+G = nx.Graph()
+
+# Cada nodo es un lugar del campus, con su posicion real sobre el mapa
+nodes = {
+    "Serendipia y Mesas de trabajo": (364, 725),
+    "Salon de Oliver": (483, 636),
+    "Salon de Rafa":   (560, 733),
+    "Biblioteca":     (1457, 1430),
+    "Cafeteria":       (400, 1812),
+    "Gym":            (1421, 577),
+    # ... 17 lugares en total
+}
+for name, (x, y) in nodes.items():
+    G.add_node(name, pos=(x, y))
+
+# Cada arista es un camino que si se puede recorrer a pie
+edges = [
+    ("Serendipia y Mesas de trabajo", "Salon de Rafa"),
+    ("Salon de Rafa", "Gym"),
+    ("Gym", "Auditorio Ignacio Ellacuria"),
+    ("D", "Cafeteria"),
+    # ... 19 conexiones
+]
+G.add_edges_from(edges)
+
+# Se dibuja el grafo ENCIMA de la foto del campus
+ax.imshow(img, extent=[0, img.shape[1], img.shape[0], 0])
+nx.draw(G, nx.get_node_attributes(G, 'pos'), with_labels=True,
+        node_color='lightblue', node_size=900, edge_color='gray', ax=ax)</pre>
+      </div>
+
+    </article>
+
+    <aside class="content-side">
+
+      <div class="media-card">
+        <img src="../assets/images/WichoTinderLogo.png" alt="Logo de WichoTinder" loading="lazy" style="border-radius:8px">
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Tecnologias</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>JavaScript</li>
+          <li>HTML / CSS</li>
+          <li>Canvas API</li>
+          <li>localStorage</li>
+          <li>Python &middot; NetworkX</li>
+          <li>GitHub Pages</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Estructuras usadas</p>
+        <ul class="skill-list" style="margin-top:12px">
+          <li>Grafo no dirigido</li>
+          <li>Lista de adyacencia</li>
+          <li>Pila (LIFO)</li>
+          <li>Conjunto (Set)</li>
+          <li>Clases y objetos</li>
+        </ul>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Las 4 pantallas</p>
+        <ol style="color:var(--muted);padding-left:20px;margin:12px 0 0;line-height:1.9;font-size:.95rem">
+          <li><strong>Home</strong> &mdash; logo y entrada</li>
+          <li><strong>Campus</strong> &mdash; grafo de lugares</li>
+          <li><strong>Explore</strong> &mdash; buscador con pila</li>
+          <li><strong>My Friends</strong> &mdash; armar el grafo</li>
+        </ol>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Aprendizajes</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">Lo que mas me costo fue entender que agregar un amigo son <strong>dos</strong> operaciones, no una: si solo lo agregas de un lado el grafo queda mal y el dibujo no cuadra. Tambien aprendi a guardar el estado en <strong>localStorage</strong> para que no se perdiera todo al recargar la pagina.</p>
+      </div>
+
+    </aside>
+  </div>
+
+</main>
+
+<footer class="footer page">
+  <p>Portafolio de Jonathan Hernandez Lazcano.</p>
+</footer>
+
+<script src="../assets/js/proyectos.js"></script>
+<script src="../assets/js/portafolio.js"></script>
+</body>
+</html>
