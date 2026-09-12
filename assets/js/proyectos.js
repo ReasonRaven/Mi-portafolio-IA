@@ -69,6 +69,53 @@ window.PORTAFOLIO = {
     }
   ],
 
+  /* Certificaciones de fuera de la carrera. Lo mas reciente va primero.
+       anio   lo que se ve en grande a la izquierda
+       emisor quien la expidio, debajo del año
+       tipo   etiqueta corta (Certificacion, Idioma, Ciberseguridad...)
+
+     Van SIN la imagen del certificado y SIN el folio: los certificados traen
+     numeros de verificacion (el de Cambridge, por ejemplo, deja consultar el
+     resultado en linea) y publicarlos seria regalar ese dato. Aqui solo va
+     emisor, año y de que trata.
+
+     Deliberadamente cortas: cinco cursos de 8 horas con autoevaluacion pesan
+     menos que un proyecto real, y en bloque hacen ver la lista como relleno. */
+  certificaciones: [
+    {
+      id: "cisco-ciberseguridad",
+      titulo: "Introduccion a Ciberseguridad",
+      emisor: "Cisco Networking Academy",
+      anio: "2026",
+      tipo: "Ciberseguridad",
+      descripcion: "Amenazas y ataques comunes, y buenas practicas para proteger datos y redes."
+    },
+    {
+      id: "claude-code-101",
+      titulo: "Claude Code 101",
+      emisor: "Anthropic",
+      anio: "2026",
+      tipo: "Herramientas",
+      descripcion: "Curso sobre Claude Code, la herramienta con la que construi buena parte de este portafolio."
+    },
+    {
+      id: "oracle-hcm",
+      titulo: "Oracle Fusion Cloud Applications HCM Process Essentials Certified",
+      emisor: "Oracle",
+      anio: "2026",
+      tipo: "Certificacion",
+      descripcion: "Examen de Oracle sobre como fluyen los datos y los procesos entre los modulos de Oracle Fusion Cloud. Va de la mano con el caso practico de implementacion de un ERP."
+    },
+    {
+      id: "ingles-c1",
+      titulo: "Ingles nivel C1",
+      emisor: "Oxford Tutorial College",
+      anio: "2023",
+      tipo: "Idioma",
+      descripcion: "Nivel C1 del Marco Comun Europeo de Referencia para las lenguas."
+    }
+  ],
+
   /* El catalogo completo se agrupa con estas materias. El "id" es el que se
      usa abajo en cada proyecto. Para una materia nueva, agrega otro objeto. */
   materias: [

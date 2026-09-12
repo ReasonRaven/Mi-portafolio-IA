@@ -33,6 +33,8 @@ Hooks the renderer looks for:
 | `data-filtros="tecnologias"` | filter chips built from the catalog's `filtros` array |
 | `data-contador="proyectos\|lenguajes\|materias"` | writes the count (keep a static fallback inside the tag) |
 | `data-lista="lenguajes"` | fills a `<ul>` from the catalog |
+| `data-extras="lista"` | fills a `<ul class="extras">` with the `extracurriculares` array |
+| `data-certificaciones="lista"` | same, from the `certificaciones` array (reuses the `.extra*` classes) |
 | `data-enlaces="<id>"` | prepends "Ver demo" / "Codigo en GitHub" buttons from that project's `demo`/`repo` fields, keeping any hand-written buttons already inside |
 
 ## Adding a project

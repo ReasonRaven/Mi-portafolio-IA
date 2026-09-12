@@ -25,6 +25,9 @@
      <ul class="extras" data-extras="lista"></ul>
          -> lista de actividades extracurriculares
 
+     <ul class="extras" data-certificaciones="lista"></ul>
+         -> lista de certificaciones
+
      <div class="enlaces" data-enlaces="backend-flask"></div>
          -> botones "Ver demo" y "Codigo en GitHub" de ese proyecto, tomando
             los campos demo/repo del catalogo. Si el proyecto no tiene esos
@@ -243,6 +246,28 @@
     caja.innerHTML = lista.map(function (e) { return actividad(e, base); }).join("");
   }
 
+  /* --- Certificaciones --------------------------------------------------- */
+
+  /* Reusa las clases .extra* de las actividades: son la misma forma, una
+     columna con la fecha a la izquierda y el cuerpo a la derecha. */
+  function certificacion(c) {
+    return '<li class="extra">' +
+      '<div class="extra-meta">' +
+      '<span class="extra-periodo">' + esc(c.anio) + '</span>' +
+      '<span class="extra-semestre">' + esc(c.emisor) + '</span>' +
+      (c.tipo ? '<span class="card-tag">' + esc(c.tipo) + '</span>' : '') +
+      '</div>' +
+      '<div class="extra-cuerpo">' +
+      '<h3>' + esc(c.titulo) + '</h3>' +
+      '<p>' + esc(c.descripcion) + '</p>' +
+      '</div></li>';
+  }
+
+  function pintarCertificaciones(caja) {
+    var lista = datos.certificaciones || [];
+    caja.innerHTML = lista.map(certificacion).join("");
+  }
+
   /* --- Arranque ---------------------------------------------------------- */
 
   function iniciar() {
@@ -255,6 +280,7 @@
     cada(document.querySelectorAll("[data-lista]"), pintarLista);
     cada(document.querySelectorAll("[data-enlaces]"), pintarEnlaces);
     cada(document.querySelectorAll("[data-extras]"), pintarActividades);
+    cada(document.querySelectorAll("[data-certificaciones]"), pintarCertificaciones);
   }
 
   if (document.readyState === "loading") {
