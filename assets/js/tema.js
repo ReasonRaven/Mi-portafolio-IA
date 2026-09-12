@@ -36,27 +36,14 @@
     }
   }
 
-  function temaDelSistema() {
-    return window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro";
-  }
-
   function aplicar(tema) {
     raiz.setAttribute("data-tema", tema);
   }
 
-  var guardado = leerGuardado();
-  aplicar(guardado === "oscuro" || guardado === "claro" ? guardado : temaDelSistema());
-
-  /* Si nunca ha tocado el boton, la pagina sigue al sistema en vivo. */
-  if (!guardado && window.matchMedia) {
-    var consulta = window.matchMedia("(prefers-color-scheme: dark)");
-    var alCambiar = function (evento) {
-      if (!leerGuardado()) aplicar(evento.matches ? "oscuro" : "claro");
-    };
-    if (consulta.addEventListener) consulta.addEventListener("change", alCambiar);
-    else if (consulta.addListener) consulta.addListener(alCambiar);
-  }
+  /* Siempre arranca en claro, aunque el sistema este en oscuro: el portafolio
+     se ve como esta diseñado y quien prefiera oscuro lo prende con el boton.
+     La unica excepcion es que ya lo haya prendido antes en este navegador. */
+  aplicar(leerGuardado() === "oscuro" ? "oscuro" : "claro");
 
   var SOL = '<svg class="icono-sol" viewBox="0 0 24 24" width="18" height="18" fill="none"' +
     ' stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">' +
