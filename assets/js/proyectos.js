@@ -20,12 +20,12 @@ window.PORTAFOLIO = {
 
   /* Se cuentan en el bloque de numeros del inicio y se pintan en la lista de
      "Lo que estoy desarrollando". Agrega uno cuando aprendas algo nuevo. */
-  lenguajes: ["HTML", "CSS", "JavaScript", "TypeScript", "Python", "C++", "MySQL"],
+  lenguajes: ["HTML", "CSS", "JavaScript", "Python", "C++", "MySQL"],
 
   /* Botones de filtro del catalogo completo. Un proyecto aparece bajo el filtro
      si el texto esta EXACTAMENTE igual dentro de su lista "tecnologias".
      Deja pocos y utiles: son para navegar, no para presumir. */
-  filtros: ["React", "TypeScript", "JavaScript", "Python", "C++", "APIs", "Grafos", "HTML", "CSS", "IA"],
+  filtros: ["React", "JavaScript", "Python", "C++", "APIs", "Grafos", "HTML", "CSS", "IA"],
 
   /* El catalogo completo se agrupa con estas materias. El "id" es el que se
      usa abajo en cada proyecto. Para una materia nueva, agrega otro objeto. */
