@@ -227,7 +227,13 @@
       '<h3>' + nombre +
       (e.enCurso ? ' <span class="extra-activo">En curso</span>' : '') + '</h3>' +
       '<p>' + esc(e.descripcion) + '</p>' +
-      (e.constancia ? '<p class="extra-nota">' + esc(e.constancia) + '</p>' : '') +
+      (e.constancia
+        ? '<p class="extra-nota">' + esc(e.constancia) +
+          (e.constanciaUrl
+            ? ' <a href="' + esc(base + e.constanciaUrl) +
+              '" target="_blank" rel="noopener">Ver constancia</a>'
+            : '') + '</p>'
+        : '') +
       '</div></li>';
   }
 
