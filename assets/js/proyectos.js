@@ -31,7 +31,7 @@ window.PORTAFOLIO = {
      usa abajo en cada proyecto. Para una materia nueva, agrega otro objeto. */
   materias: [
     {
-      id: "estructura-datos",
+      id: "estructura-datos-avanzados",
       nombre: "Estructura de Datos y Algoritmos Avanzados",
       semestre: "4to semestre",
       descripcion: "Algoritmos de grafos aplicados a un problema real: calcular rutas optimas sobre el mapa de Tlaxcala con Dijkstra, A* y k-shortest paths."
@@ -43,10 +43,10 @@ window.PORTAFOLIO = {
       descripcion: "Analisis de sistemas empresariales: como se elige, se cotiza y se implementa un ERP en una empresa real, y como se mide despues si funciono."
     },
     {
-      id: "programacion-2",
-      nombre: "Programacion 2",
+      id: "estructura-datos",
+      nombre: "Estructura de Datos y Algoritmos",
       semestre: "2do semestre",
-      descripcion: "Estructuras de datos en JavaScript: grafos, pilas y programacion orientada a objetos, aplicadas en una app web completa."
+      descripcion: "El curso base de estructuras de datos: grafos, pilas y programacion orientada a objetos, aplicados en una app web completa. La version avanzada viene en 4to semestre."
     },
     {
       id: "intro-sistemas",
@@ -77,7 +77,7 @@ window.PORTAFOLIO = {
   proyectos: [
     {
       id: "rutas-optimas",
-      materia: "estructura-datos",
+      materia: "estructura-datos-avanzados",
       etiqueta: "Proyecto final",
       titulo: "Rutas Optimas en Redes Viales",
       resumen: "App que compara Dijkstra, A* y k-shortest paths sobre el mapa real de Tlaxcala.",
@@ -100,7 +100,7 @@ window.PORTAFOLIO = {
     },
     {
       id: "wicho-tinder",
-      materia: "programacion-2",
+      materia: "estructura-datos",
       etiqueta: "Proyecto final",
       titulo: "WichoTinder",
       resumen: "Parodia de Tinder para el campus: grafos de amistades, pilas y POO en JavaScript.",

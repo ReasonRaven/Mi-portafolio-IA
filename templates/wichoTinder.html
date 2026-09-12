@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Programacion 2 | WichoTinder</title>
+  <title>Estructura de Datos | WichoTinder</title>
   <link rel="icon" href="../assets/images/Yo.ico">
   <link rel="stylesheet" href="../assets/css/styleGeneral.css">
 </head>
@@ -23,7 +23,7 @@
 
   <section class="subpage-hero">
     <a class="back-link" href="../index.html">Regresar al inicio</a>
-    <p class="eyebrow">Programacion 2 &middot; Proyecto final</p>
+    <p class="eyebrow">Estructura de Datos y Algoritmos &middot; Proyecto final</p>
     <h1>WichoTinder</h1>
     <p class="lead">Una parodia de Tinder para el campus de la Ibero. Por debajo del chiste es un proyecto de estructuras de datos: las amistades son un <strong>grafo no dirigido</strong>, las busquedas recientes son una <strong>pila</strong>, y el mapa del campus es otro grafo dibujado con NetworkX.</p>
     <div class="enlaces" data-enlaces="wicho-tinder"></div>
@@ -235,6 +235,11 @@ nx.draw(G, nx.get_node_attributes(G, 'pos'), with_labels=True,
       <div class="media-card">
         <p class="eyebrow">Aprendizajes</p>
         <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">Lo que mas me costo fue entender que agregar un amigo son <strong>dos</strong> operaciones, no una: si solo lo agregas de un lado el grafo queda mal y el dibujo no cuadra. Tambien aprendi a guardar el estado en <strong>localStorage</strong> para que no se perdiera todo al recargar la pagina.</p>
+      </div>
+
+      <div class="media-card">
+        <p class="eyebrow">Dos anos despues</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">Aqui el grafo tenia 15 nodos y lo dibujaba a mano en un canvas. En <a href="rutasOptimas.html">Estructura de Datos Avanzados</a>, en 4to semestre, el grafo es la red vial de Tlaxcala: 65,461 nodos y 164,409 aristas, recorrida con Dijkstra y A*.</p>
       </div>
 
     </aside>
