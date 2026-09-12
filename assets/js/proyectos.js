@@ -27,6 +27,34 @@ window.PORTAFOLIO = {
      Deja pocos y utiles: son para navegar, no para presumir. */
   filtros: ["React", "JavaScript", "Python", "C++", "MySQL", "APIs", "Grafos", "ERP", "HTML", "CSS", "IA"],
 
+  /* Actividades extracurriculares. Se pintan en el inicio, en su propia
+     seccion, aparte de los proyectos. Lo mas reciente va primero.
+       periodo    lo que se ve en grande a la izquierda
+       semestre   opcional, debajo del periodo
+       tipo       etiqueta corta (Deporte, Equipo, Taller...)
+       enCurso    true = le pone la palomita de "En curso"
+       constancia opcional, una linea que respalda la participacion     */
+  extracurriculares: [
+    {
+      id: "kickboxing",
+      titulo: "Taller de kickboxing",
+      periodo: "2026",
+      semestre: "5to semestre",
+      tipo: "Deporte",
+      enCurso: true,
+      descripcion: "Taller de kickboxing dentro de la oferta de formacion integral de la universidad. Entrenamiento semanal en paralelo a la carrera."
+    },
+    {
+      id: "esports",
+      titulo: "Grupo estudiantil de eSports",
+      periodo: "Primavera 2025",
+      semestre: "2do semestre",
+      tipo: "Equipo",
+      descripcion: "Forme parte del grupo estudiantil de eSports de la Ibero Puebla: competencia por equipos, con roles repartidos y coordinacion en tiempo real.",
+      constancia: "Constancia de participacion del Centro de Participacion y Difusion Universitaria, folio CO25234."
+    }
+  ],
+
   /* El catalogo completo se agrupa con estas materias. El "id" es el que se
      usa abajo en cada proyecto. Para una materia nueva, agrega otro objeto. */
   materias: [

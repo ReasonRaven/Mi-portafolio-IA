@@ -22,6 +22,9 @@
      <ul class="skill-list" data-lista="lenguajes"></ul>
          -> lista de lenguajes del catalogo
 
+     <ul class="extras" data-extras="lista"></ul>
+         -> lista de actividades extracurriculares
+
      <div class="enlaces" data-enlaces="backend-flask"></div>
          -> botones "Ver demo" y "Codigo en GitHub" de ese proyecto, tomando
             los campos demo/repo del catalogo. Si el proyecto no tiene esos
@@ -208,6 +211,28 @@
     if (html) { caja.insertAdjacentHTML("afterbegin", html); }
   }
 
+  /* --- Actividades extracurriculares ------------------------------------ */
+
+  function actividad(e) {
+    return '<li class="extra">' +
+      '<div class="extra-meta">' +
+      '<span class="extra-periodo">' + esc(e.periodo) + '</span>' +
+      (e.semestre ? '<span class="extra-semestre">' + esc(e.semestre) + '</span>' : '') +
+      (e.tipo ? '<span class="card-tag">' + esc(e.tipo) + '</span>' : '') +
+      '</div>' +
+      '<div class="extra-cuerpo">' +
+      '<h3>' + esc(e.titulo) +
+      (e.enCurso ? ' <span class="extra-activo">En curso</span>' : '') + '</h3>' +
+      '<p>' + esc(e.descripcion) + '</p>' +
+      (e.constancia ? '<p class="extra-nota">' + esc(e.constancia) + '</p>' : '') +
+      '</div></li>';
+  }
+
+  function pintarActividades(caja) {
+    var lista = datos.extracurriculares || [];
+    caja.innerHTML = lista.map(actividad).join("");
+  }
+
   /* --- Arranque ---------------------------------------------------------- */
 
   function iniciar() {
@@ -219,6 +244,7 @@
     cada(document.querySelectorAll("[data-contador]"), contar);
     cada(document.querySelectorAll("[data-lista]"), pintarLista);
     cada(document.querySelectorAll("[data-enlaces]"), pintarEnlaces);
+    cada(document.querySelectorAll("[data-extras]"), pintarActividades);
   }
 
   if (document.readyState === "loading") {
