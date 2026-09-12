@@ -25,7 +25,7 @@ window.PORTAFOLIO = {
   /* Botones de filtro del catalogo completo. Un proyecto aparece bajo el filtro
      si el texto esta EXACTAMENTE igual dentro de su lista "tecnologias".
      Deja pocos y utiles: son para navegar, no para presumir. */
-  filtros: ["React", "JavaScript", "Python", "C++", "APIs", "Grafos", "HTML", "CSS", "IA"],
+  filtros: ["React", "JavaScript", "Python", "C++", "APIs", "Grafos", "ERP", "HTML", "CSS", "IA"],
 
   /* El catalogo completo se agrupa con estas materias. El "id" es el que se
      usa abajo en cada proyecto. Para una materia nueva, agrega otro objeto. */
@@ -35,6 +35,12 @@ window.PORTAFOLIO = {
       nombre: "Estructura de Datos y Algoritmos Avanzados",
       semestre: "4to semestre",
       descripcion: "Algoritmos de grafos aplicados a un problema real: calcular rutas optimas sobre el mapa de Tlaxcala con Dijkstra, A* y k-shortest paths."
+    },
+    {
+      id: "sistemas-informacion",
+      nombre: "Sistemas de Informacion",
+      semestre: "3er semestre",
+      descripcion: "Analisis de sistemas empresariales: como se elige, se cotiza y se implementa un ERP en una empresa real, y como se mide despues si funciono."
     },
     {
       id: "programacion-2",
@@ -79,6 +85,17 @@ window.PORTAFOLIO = {
       pagina: "templates/rutasOptimas.html",
       tecnologias: ["React", "TypeScript", "Python", "FastAPI", "NetworkX", "Docker", "APIs", "Grafos"],
       repo: "https://github.com/ReasonRaven/ProyectoRutasOptimasRedesViales",
+      destacado: true
+    },
+    {
+      id: "erp-sap-b1",
+      materia: "sistemas-informacion",
+      etiqueta: "Caso practico",
+      titulo: "Implementacion de un ERP",
+      resumen: "Propuesta completa de SAP Business One para una empresa de scooters: RFP, roadmap y KPIs.",
+      imagen: "assets/images/ErpSapB1.svg",
+      pagina: "templates/erpSapB1.html",
+      tecnologias: ["SAP Business One", "ERP", "RFP", "KPIs", "Analisis de procesos"],
       destacado: true
     },
     {
