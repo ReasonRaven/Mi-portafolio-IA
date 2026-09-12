@@ -56,7 +56,7 @@ window.PORTAFOLIO = {
     {
       id: "modeva",
       titulo: "Curso introductorio MODEVA",
-      periodo: "Otono 2024",
+      periodo: "Otoño 2024",
       semestre: "1er semestre",
       tipo: "Formacion",
       descripcion: "Curso introductorio sobre la oferta de formacion integral de la universidad: como armar un curriculum, talleres artisticos, grupos estudiantiles, voluntariado y orientacion educativa.",
@@ -78,7 +78,7 @@ window.PORTAFOLIO = {
       id: "bases-de-datos",
       nombre: "Sistemas de Bases de Datos",
       semestre: "4to semestre",
-      descripcion: "El curso completo de MySQL: disenar un esquema desde el diagrama entidad-relacion, normalizarlo, consultarlo y meterle logica de negocio con triggers y stored procedures."
+      descripcion: "El curso completo de MySQL: diseñar un esquema desde el diagrama entidad-relacion, normalizarlo, consultarlo y meterle logica de negocio con triggers y stored procedures."
     },
     {
       id: "sistemas-informacion",

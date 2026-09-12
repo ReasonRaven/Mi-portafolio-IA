@@ -25,7 +25,7 @@
     <a class="back-link" href="../index.html">Regresar al inicio</a>
     <p class="eyebrow">Sistemas de Bases de Datos &middot; 4to semestre</p>
     <h1>Bases de Datos con MySQL</h1>
-    <p class="lead">El curso completo, agrupado por lo que se aprende a hacer y no por el orden en que se entrego: disenar un esquema desde cero, normalizarlo, consultarlo, y meterle logica de negocio con <strong>triggers</strong> y <strong>stored procedures</strong> para que la base se defienda sola.</p>
+    <p class="lead">El curso completo, agrupado por lo que se aprende a hacer y no por el orden en que se entrego: diseñar un esquema desde cero, normalizarlo, consultarlo, y meterle logica de negocio con <strong>triggers</strong> y <strong>stored procedures</strong> para que la base se defienda sola.</p>
     <div class="enlaces">
       <a class="button" href="https://github.com/ReasonRaven/Mi-portafolio-IA/tree/main/SistemasBasesDeDatos" target="_blank" rel="noopener">Ver los 33 scripts</a>
       <a class="button secondary" href="../SistemasBasesDeDatos/BasesDeDatosNoRelacionales.pdf" target="_blank" rel="noopener">Investigacion de NoSQL</a>
@@ -36,7 +36,7 @@
     <article class="content-main">
 
       <div class="info-card">
-        <p class="eyebrow">01 &middot; Diseno</p>
+        <p class="eyebrow">01 &middot; Diseño</p>
         <h2 style="font-size:1.4rem;margin-top:8px">Antes de escribir SQL hay que dibujar</h2>
         <p>La parte que mas me costo del curso no fue la sintaxis, fue decidir <em>que tablas deben existir</em>. Un diagrama entidad-relacion obliga a contestar eso antes de escribir nada: que entidades hay, como se relacionan y cual es la llave de cada una.</p>
         <p>Este es el modelo de un restaurante. Lo interesante esta abajo: un mesero atiende varias mesas y una mesa la atienden varios meseros, asi que la relacion no se puede guardar en ninguna de las dos tablas. Se necesita una <strong>tabla puente</strong> (<code>Meseros_mesas</code>) con llave primaria compuesta.</p>
@@ -176,12 +176,12 @@ BEGIN
     IF OLD.nota IN ('C+','B-','B','B+','A-','A','A+') THEN
 
         SET creditos_asig = (
-            SELECT creditos FROM asignatura
+            SELECT créditos FROM asignatura
             WHERE  asignatura_id = OLD.asignatura_id
         );
 
         UPDATE estudiante
-        SET    tot_creditos = tot_creditos - creditos_asig
+        SET    tot_créditos = tot_créditos - creditos_asig
         WHERE  ID = OLD.ID;
     END IF;
 END//</pre>
@@ -307,7 +307,7 @@ LIMIT 1;</pre>
 
       <div class="media-card">
         <p class="eyebrow">Nota honesta</p>
-        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">El esquema de la universidad sobre el que corri varios ejercicios (<code>ScriptUniversidad.sql</code>) viene del libro de texto del curso, no lo disene yo. Lo mio son los triggers, los procedures, las consultas, los diagramas ER y la normalizacion.</p>
+        <p style="color:var(--muted);margin:10px 0 0;font-size:.95rem">El esquema de la universidad sobre el que corri varios ejercicios (<code>ScriptUniversidad.sql</code>) viene del libro de texto del curso, no lo diseñe yo. Lo mio son los triggers, los procedures, las consultas, los diagramas ER y la normalizacion.</p>
       </div>
 
       <div class="media-card">

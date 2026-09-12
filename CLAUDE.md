@@ -87,4 +87,8 @@ Every page in `templates/` follows this pattern:
 
 ## Language
 
-Site content, code comments and commit messages are in Spanish (no accents in most existing copy — match the surrounding text).
+Site content, code comments and commit messages are in Spanish.
+
+Most existing copy drops accent marks (`Presentacion`, `practicas`) — match that. **But `ñ` is a letter, not an accent: always write it.** `diseño`, `años`, `compañero`, `pestaña`, `español`, `Otoño` — writing `diseno` or `anos` is a misspelling, not a style choice.
+
+Code inside `<pre class="code-block">` is the exception to all of the above: reproduce identifiers **verbatim, accents included**, or the snippet stops being runnable. The MySQL schema genuinely has columns named `créditos`, `tot_créditos`, `año`, `sección` and `número_aula`. Comments inside a snippet may be rewritten for clarity; names may not.
